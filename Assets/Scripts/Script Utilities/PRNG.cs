@@ -5,33 +5,32 @@ public class PRNG {
 
 	public enum Weight { None, Lower, Upper, Centre, Ends }
 
-	private System.Random prng;
-	private int seed;
+	private readonly System.Random _prng;
 
-	public int Seed => seed;
+	public int Seed { get; }
 
 	public PRNG (int seed) {
-		this.seed = seed;
-		prng = new System.Random (this.seed);
+		this.Seed = seed;
+		_prng = new System.Random (this.Seed);
 	}
 
 	public PRNG (string seed) {
-		this.seed = seed.GetHashCode ();
-		prng = new System.Random (this.seed);
+		this.Seed = seed.GetHashCode ();
+		_prng = new System.Random (this.Seed);
 	}
 
 	public PRNG () {
-		prng = new System.Random ();
+		_prng = new System.Random ();
 	}
 
 	/// Returns a random integer value [min, max)
 	public int Range (int min, int max) {
-		return prng.Next (min, max);
+		return _prng.Next (min, max);
 	}
 
 	/// Returns a random float value [min, max)
 	public float Range (float min, float max) {
-		return Mathf.Lerp (min, max, (float) prng.NextDouble ());
+		return Mathf.Lerp (min, max, (float) _prng.NextDouble ());
 	}
 
 	// Returns a vector4 where each component is a random number in range [min, max)
@@ -47,7 +46,7 @@ public class PRNG {
 	public float Value () {
 		// According to stackoverflow this should technically allow the random value to equal 1 
 		const double maxExclusive = 1.0000000004656612875245796924106;
-		return (float) (prng.NextDouble () * maxExclusive);
+		return (float) (_prng.NextDouble () * maxExclusive);
 	}
 
 	/// Random value [0, 1]
@@ -176,11 +175,11 @@ public class PRNG {
 	}
 
 	public int Sign () {
-		return (prng.NextDouble () > 0.5) ? 1 : -1;
+		return (_prng.NextDouble () > 0.5) ? 1 : -1;
 	}
 
 	public int NextInt () {
-		return prng.Next ();
+		return _prng.Next ();
 	}
 
 	public Vector3 JiggleVector3 (float weightX, float weightY, float weightZ) {
@@ -207,7 +206,7 @@ public class PRNG {
 	public void Shuffle<T> (T[] array) {
 		int n = array.Length;
 		for (int i = 0; i < n - 1; i++) {
-			int j = prng.Next (i, n);
+			int j = _prng.Next (i, n);
 			T temp = array[j];
 			array[j] = array[i];
 			array[i] = temp;
@@ -217,7 +216,7 @@ public class PRNG {
 	public void Shuffle<T> (List<T> list) {
 		int n = list.Count;
 		for (int i = 0; i < n - 1; i++) {
-			int j = prng.Next (i, n);
+			int j = _prng.Next (i, n);
 			T temp = list[j];
 			list[j] = list[i];
 			list[i] = temp;

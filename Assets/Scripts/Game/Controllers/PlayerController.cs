@@ -28,115 +28,125 @@ public class PlayerController : GravityObject {
 	public Transform feet;
 
 	// Private
-	private Rigidbody rb;
-	private Ship spaceship;
+	private Rigidbody _rb;
+	//private Ship spaceship;
 
-	private float yaw;
-	private float pitch;
-	private float smoothYaw;
-	private float smoothPitch;
+	private float _yaw;
+	private float _pitch;
+	private float _smoothYaw;
+	private float _smoothPitch;
 
-	private float yawSmoothV;
-	private float pitchSmoothV;
+	private float _smoothYawOld;
 
-	private Vector3 targetVelocity;
-	private Vector3 cameraLocalPos;
-	private Vector3 smoothVelocity;
-	private Vector3 smoothVRef;
+	private float _yawSmoothV;
+	private float _pitchSmoothV;
+
+	private Vector3 _targetVelocity;
+	private Vector3 _cameraLocalPos;
+	private Vector3 _smoothVelocity;
+	private Vector3 _smoothVRef;
+
+	private bool _isGrounded;
 
 	// Jetpack
-	private bool usingJetpack;
-	private float jetpackFuelPercent = 1;
-	private float lastJetpackUseTime;
+	private bool _usingJetpack;
+	private float _jetpackFuelPercent = 1;
+	private float _lastJetpackUseTime;
 
-	private CelestialBody referenceBody;
+	private CelestialBody _referenceBody;
 
-	private Camera cam;
-	private bool readyToFlyShip;
-	private bool debug_playerFrozen;
-	private Animator animator;
+	private Camera _cam;
+	private bool _readyToFlyShip;
+	private bool _debugPlayerFrozen;
+	private Animator _animator;
 
 	private void Awake () {
-		cam = GetComponentInChildren<Camera> ();
-		cameraLocalPos = cam.transform.localPosition;
-		spaceship = FindObjectOfType<Ship> ();
+		_cam = GetComponentInChildren<Camera> ();
+		_cameraLocalPos = _cam.transform.localPosition;
+		//spaceship = FindObjectOfType<Ship> ();
 		InitRigidbody ();
 
-		animator = GetComponentInChildren<Animator> ();
+		_animator = GetComponentInChildren<Animator> ();
 		inputSettings.Begin ();
 	}
 
 	private void InitRigidbody () {
-		rb = GetComponent<Rigidbody> ();
-		rb.interpolation = RigidbodyInterpolation.Interpolate;
-		rb.useGravity = false;
-		rb.isKinematic = false;
-		rb.mass = mass;
+		_rb = GetComponent<Rigidbody> ();
+		_rb.interpolation = RigidbodyInterpolation.Interpolate;
+		_rb.useGravity = false;
+		_rb.isKinematic = false;
+		_rb.mass = mass;
 	}
 
 	private void Update () {
-		HandleMovement ();
-	}
-
-	private void HandleMovement () {
-		HandleEditorInput ();
 		if (Time.timeScale == 0) {
 			return;
 		}
-		// Look input
-		yaw += Input.GetAxisRaw ("Mouse X") * inputSettings.mouseSensitivity / 10 * mouseSensitivityMultiplier;
-		pitch -= Input.GetAxisRaw ("Mouse Y") * inputSettings.mouseSensitivity / 10 * mouseSensitivityMultiplier;
-		pitch = Mathf.Clamp (pitch, pitchMinMax.x, pitchMinMax.y);
-		float mouseSmoothTime = Mathf.Lerp (0.01f, maxMouseSmoothTime, inputSettings.mouseSmoothing);
-		smoothPitch = Mathf.SmoothDampAngle (smoothPitch, pitch, ref pitchSmoothV, mouseSmoothTime);
-		float smoothYawOld = smoothYaw;
-		smoothYaw = Mathf.SmoothDampAngle (smoothYaw, yaw, ref yawSmoothV, mouseSmoothTime);
-		if (!debug_playerFrozen && Time.timeScale > 0) {
-			cam.transform.localEulerAngles = Vector3.right * smoothPitch;
-			transform.Rotate (Vector3.up * Mathf.DeltaAngle (smoothYawOld, smoothYaw), Space.Self);
+		
+		HandleInput();
+
+		// Refuel jetpack
+		if (Time.time - _lastJetpackUseTime > jetpackRefuelDelay) {
+			_jetpackFuelPercent = Mathf.Clamp01 (_jetpackFuelPercent + Time.deltaTime / jetpackRefuelTime);
 		}
 
-		// Movement
-		bool isGrounded = IsGrounded ();
+		// Handle animations
+		float currentSpeed = _smoothVelocity.magnitude;
+		float animationSpeedPercent = (currentSpeed <= walkSpeed) ? currentSpeed / walkSpeed / 2 : currentSpeed / runSpeed;
+		_animator.SetBool ("Grounded", _isGrounded);
+		_animator.SetFloat ("Speed", animationSpeedPercent);
+	}
+
+	private void HandleInput()
+	{
+		HandleEditorInput();
+
+		// Look input
+		_yaw += Input.GetAxisRaw ("Mouse X") * inputSettings.mouseSensitivity / 10 * mouseSensitivityMultiplier;
+		_pitch -= Input.GetAxisRaw ("Mouse Y") * inputSettings.mouseSensitivity / 10 * mouseSensitivityMultiplier;
+		_pitch = Mathf.Clamp (_pitch, pitchMinMax.x, pitchMinMax.y);
+		float mouseSmoothTime = Mathf.Lerp (0.01f, maxMouseSmoothTime, inputSettings.mouseSmoothing);
+		_smoothPitch = Mathf.SmoothDampAngle (_smoothPitch, _pitch, ref _pitchSmoothV, mouseSmoothTime);
+		_smoothYawOld = _smoothYaw;
+		_smoothYaw = Mathf.SmoothDampAngle (_smoothYaw, _yaw, ref _yawSmoothV, mouseSmoothTime);
+
+		// Movement input
+		_isGrounded = IsGrounded ();
 		Vector3 input = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical"));
 		bool running = Input.GetKey (KeyCode.LeftShift);
-		targetVelocity = transform.TransformDirection (input.normalized) * ((running) ? runSpeed : walkSpeed);
-		smoothVelocity = Vector3.SmoothDamp (smoothVelocity, targetVelocity, ref smoothVRef, (isGrounded) ? vSmoothTime : airSmoothTime);
+		_targetVelocity = transform.TransformDirection (input.normalized) * ((running) ? runSpeed : walkSpeed);
+		_smoothVelocity = Vector3.SmoothDamp (_smoothVelocity, _targetVelocity, ref _smoothVRef, (_isGrounded) ? vSmoothTime : airSmoothTime);
+	}
+
+	private void HandleMovement () {
+		if (!_debugPlayerFrozen && Time.timeScale > 0) {
+			_cam.transform.localEulerAngles = Vector3.right * _smoothPitch;
+			transform.Rotate (Vector3.up * Mathf.DeltaAngle (_smoothYawOld, _smoothYaw), Space.Self);
+		}
 
 		//bool inWater = referenceBody
-		if (isGrounded) {
+		if (_isGrounded) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				rb.AddForce (transform.up * jumpForce, ForceMode.VelocityChange);
-				isGrounded = false;
+				_rb.AddForce (transform.up * jumpForce, ForceMode.VelocityChange);
+				_isGrounded = false;
 			} else {
 				// Apply small downward force to prevent player from bouncing when going down slopes
-				rb.AddForce (-transform.up * stickToGroundForce, ForceMode.VelocityChange);
+				_rb.AddForce (-transform.up * stickToGroundForce, ForceMode.VelocityChange);
 			}
 		} else {
 			// Press (and hold) spacebar while above ground to engage jetpack
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				usingJetpack = true;
+				_usingJetpack = true;
 			}
 		}
 
-		if (usingJetpack && Input.GetKey (KeyCode.Space) && jetpackFuelPercent > 0) {
-			lastJetpackUseTime = Time.time;
-			jetpackFuelPercent -= Time.deltaTime / jetpackDuration;
-			rb.AddForce (transform.up * jetpackForce, ForceMode.Acceleration);
+		if (_usingJetpack && Input.GetKey (KeyCode.Space) && _jetpackFuelPercent > 0) {
+			_lastJetpackUseTime = Time.time;
+			_jetpackFuelPercent -= Time.deltaTime / jetpackDuration;
+			_rb.AddForce (transform.up * jetpackForce, ForceMode.Acceleration);
 		} else {
-			usingJetpack = false;
+			_usingJetpack = false;
 		}
-
-		// Refuel jetpack
-		if (Time.time - lastJetpackUseTime > jetpackRefuelDelay) {
-			jetpackFuelPercent = Mathf.Clamp01 (jetpackFuelPercent + Time.deltaTime / jetpackRefuelTime);
-		}
-
-		// Handle animations
-		float currentSpeed = smoothVelocity.magnitude;
-		float animationSpeedPercent = (currentSpeed <= walkSpeed) ? currentSpeed / walkSpeed / 2 : currentSpeed / runSpeed;
-		animator.SetBool ("Grounded", isGrounded);
-		animator.SetFloat ("Speed", animationSpeedPercent);
 	}
 
 	private bool IsGrounded () {
@@ -146,13 +156,13 @@ public class PlayerController : GravityObject {
 		const float groundedRayDst = .2f;
 		bool grounded = false;
 
-		if (referenceBody) {
-			var relativeVelocity = rb.velocity - referenceBody.velocity;
+		if (_referenceBody) {
+			var relativeVelocity = _rb.velocity - _referenceBody.velocity;
 			// Don't cast ray down if player is jumping up from surface
 			if (relativeVelocity.y <= jumpForce * .5f) {
 				RaycastHit hit;
 				Vector3 offsetToFeet = (feet.position - transform.position);
-				Vector3 rayOrigin = rb.position + offsetToFeet + transform.up * rayRadius;
+				Vector3 rayOrigin = _rb.position + offsetToFeet + transform.up * rayRadius;
 				Vector3 rayDir = -transform.up;
 
 				grounded = Physics.SphereCast (rayOrigin, rayRadius, rayDir, out hit, groundedRayDst, walkableMask);
@@ -163,16 +173,22 @@ public class PlayerController : GravityObject {
 	}
 
 	private void FixedUpdate () {
+		if (Time.timeScale == 0) {
+			return;
+		}
+		
+		HandleMovement();
+		
 		CelestialBody[] bodies = NBodySimulation.Bodies;
 		Vector3 gravityOfNearestBody = Vector3.zero;
 		float nearestSurfaceDst = float.MaxValue;
 
 		// Gravity
 		foreach (CelestialBody body in bodies) {
-			float sqrDst = (body.Position - rb.position).sqrMagnitude;
-			Vector3 forceDir = (body.Position - rb.position).normalized;
+			float sqrDst = (body.Position - _rb.position).sqrMagnitude;
+			Vector3 forceDir = (body.Position - _rb.position).normalized;
 			Vector3 acceleration = forceDir * Universe.gravitationalConstant * body.mass / sqrDst;
-			rb.AddForce (acceleration, ForceMode.Acceleration);
+			_rb.AddForce (acceleration, ForceMode.Acceleration);
 
 			float dstToSurface = Mathf.Sqrt (sqrDst) - body.radius;
 
@@ -180,40 +196,40 @@ public class PlayerController : GravityObject {
 			if (dstToSurface < nearestSurfaceDst) {
 				nearestSurfaceDst = dstToSurface;
 				gravityOfNearestBody = acceleration;
-				referenceBody = body;
+				_referenceBody = body;
 			}
 		}
 
 		// Rotate to align with gravity up
 		Vector3 gravityUp = -gravityOfNearestBody.normalized;
-		rb.rotation = Quaternion.FromToRotation (transform.up, gravityUp) * rb.rotation;
+		transform.rotation = Quaternion.FromToRotation (transform.up, gravityUp) * transform.rotation;
 
 		// Move
-		rb.MovePosition (rb.position + smoothVelocity * Time.fixedDeltaTime);
+		_rb.MovePosition (_rb.position + _smoothVelocity * Time.fixedDeltaTime);
 	}
 
 	private void HandleEditorInput () {
 		if (Application.isEditor) {
 			if (Input.GetKeyDown (KeyCode.O)) {
 				Debug.Log ("Debug mode: Toggle freeze player");
-				debug_playerFrozen = !debug_playerFrozen;
+				_debugPlayerFrozen = !_debugPlayerFrozen;
 			}
 		}
 	}
 
 	public void SetVelocity (Vector3 velocity) {
-		rb.velocity = velocity;
+		_rb.velocity = velocity;
 	}
 
 	public void ExitFromSpaceship () {
-		cam.transform.parent = transform;
-		cam.transform.localPosition = cameraLocalPos;
-		smoothYaw = 0;
-		yaw = 0;
-		smoothPitch = cam.transform.localEulerAngles.x;
-		pitch = smoothPitch;
+		_cam.transform.parent = transform;
+		_cam.transform.localPosition = _cameraLocalPos;
+		_smoothYaw = 0;
+		_yaw = 0;
+		_smoothPitch = _cam.transform.localEulerAngles.x;
+		_pitch = _smoothPitch;
 	}
-	public Camera Camera => cam;
+	public Camera Camera => _cam;
 
-	public Rigidbody Rigidbody => rb;
+	public Rigidbody Rigidbody => _rb;
 }
