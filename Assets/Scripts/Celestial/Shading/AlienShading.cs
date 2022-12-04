@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu (menuName = "Celestial Body/Alein/Alien Shading")]
 public class AlienShading : CelestialBodyShading {
@@ -32,7 +30,7 @@ public class AlienShading : CelestialBodyShading {
 
 	}
 
-	void ApplyColours (Material material, AlienColours colours) {
+	private void ApplyColours (Material material, AlienColours colours) {
 		material.SetColor ("_ShoreCol", colours.shoreCol);
 		material.SetColor ("_FlatColA", colours.flatColA1);
 		material.SetColor ("_FlatColA2", colours.flatColA2);
@@ -42,7 +40,7 @@ public class AlienShading : CelestialBodyShading {
 		material.SetColor ("_SteepColB", colours.steepColB);
 	}
 
-	void SetRandomColours (Material material) {
+	private void SetRandomColours (Material material) {
 		PRNG random = new PRNG (seed);
 		randomizedCols.shoreCol = ColourHelper.Random (random, 0.3f, 0.7f, 0.4f, 0.8f);
 		randomizedCols.flatColA1 = ColourHelper.RandomSimilar (random, randomizedCols.shoreCol);

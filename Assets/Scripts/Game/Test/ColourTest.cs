@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class ColourTest : MonoBehaviour {
@@ -10,9 +8,9 @@ public class ColourTest : MonoBehaviour {
 	public Vector2 saturationMinMax;
 	public Vector2 valueMinMax;
 	public int seed;
-	Material[] materials;
+	private Material[] materials;
 
-	void Update () {
+	private void Update () {
 		Process ();
 	}
 
@@ -21,7 +19,7 @@ public class ColourTest : MonoBehaviour {
 		Process ();
 	}
 
-	void Process () {
+	private void Process () {
 		if (materials == null || materials.Length != renderers.Length) {
 			materials = new Material[renderers.Length];
 		}

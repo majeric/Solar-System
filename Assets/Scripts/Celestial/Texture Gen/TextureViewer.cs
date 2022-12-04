@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class TextureViewer : MonoBehaviour {
@@ -13,7 +11,7 @@ public class TextureViewer : MonoBehaviour {
     public Material previewMaterial;
     public MeshRenderer[] previewObjects;
 
-    void Update () {
+    private void Update () {
         UpdateTexture ();
     }
 
@@ -24,7 +22,7 @@ public class TextureViewer : MonoBehaviour {
         }
     }
 
-    void DisplayPreview (RenderTexture renderTexture) {
+    private void DisplayPreview (RenderTexture renderTexture) {
         if (previewMaterial == null) {
             previewMaterial = new Material (Shader.Find ("Unlit/Texture"));
         }

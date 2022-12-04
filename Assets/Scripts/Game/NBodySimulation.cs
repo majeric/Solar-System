@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NBodySimulation : MonoBehaviour {
-    CelestialBody[] bodies;
-    static NBodySimulation instance;
+    private CelestialBody[] bodies;
+    private static NBodySimulation instance;
 
-    void Awake () {
+    private void Awake () {
 
         bodies = FindObjectsOfType<CelestialBody> ();
         Time.fixedDeltaTime = Universe.physicsTimeStep;
         Debug.Log ("Setting fixedDeltaTime to: " + Universe.physicsTimeStep);
     }
 
-    void FixedUpdate () {
+    private void FixedUpdate () {
         for (int i = 0; i < bodies.Length; i++) {
             Vector3 acceleration = CalculateAcceleration (bodies[i].Position, bodies[i]);
             bodies[i].UpdateVelocity (acceleration, Universe.physicsTimeStep);
@@ -39,13 +37,9 @@ public class NBodySimulation : MonoBehaviour {
         return acceleration;
     }
 
-    public static CelestialBody[] Bodies {
-        get {
-            return Instance.bodies;
-        }
-    }
+    public static CelestialBody[] Bodies => Instance.bodies;
 
-    static NBodySimulation Instance {
+    private static NBodySimulation Instance {
         get {
             if (instance == null) {
                 instance = FindObjectOfType<NBodySimulation> ();

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
 public static class ComputeHelper {
@@ -22,11 +19,7 @@ public static class ComputeHelper {
 
 	// Only run compute shaders if this is true
 	// This is only relevant for compute shaders that run outside of playmode
-	public static bool CanRunEditModeCompute {
-		get {
-			return CheckIfCanRunInEditMode ();
-		}
-	}
+	public static bool CanRunEditModeCompute => CheckIfCanRunInEditMode ();
 
 	// Set all values from settings object on the shader. Note, variable names must be an exact match in the shader.
 	// Settings object can be any class/struct containing vectors/ints/floats/bools
@@ -68,7 +61,7 @@ public static class ComputeHelper {
 
 	public static ComputeBuffer CreateAndSetBuffer<T> (T[] data, ComputeShader cs, string nameID, int kernelIndex = 0) {
 		ComputeBuffer buffer = null;
-		CreateAndSetBuffer<T> (ref buffer, data, cs, nameID, kernelIndex);
+		CreateAndSetBuffer (ref buffer, data, cs, nameID, kernelIndex);
 		return buffer;
 	}
 
@@ -137,7 +130,7 @@ public static class ComputeHelper {
 	// Editor helpers:
 
 #if UNITY_EDITOR
-	static UnityEditor.PlayModeStateChange playModeState;
+	private static UnityEditor.PlayModeStateChange playModeState;
 
 	static ComputeHelper () {
 		// Monitor play mode state
@@ -148,7 +141,7 @@ public static class ComputeHelper {
 		UnityEditor.Compilation.CompilationPipeline.compilationStarted += OnCompilationStarted;
 	}
 
-	static void MonitorPlayModeState (UnityEditor.PlayModeStateChange state) {
+	private static void MonitorPlayModeState (UnityEditor.PlayModeStateChange state) {
 		playModeState = state;
 		if (state == UnityEditor.PlayModeStateChange.ExitingEditMode) {
 			if (shouldReleaseEditModeBuffers != null) {
@@ -157,14 +150,14 @@ public static class ComputeHelper {
 		}
 	}
 
-	static void OnCompilationStarted (System.Object obj) {
+	private static void OnCompilationStarted (System.Object obj) {
 		if (shouldReleaseEditModeBuffers != null) {
 			shouldReleaseEditModeBuffers ();
 		}
 	}
 #endif
 
-	static bool CheckIfCanRunInEditMode () {
+	private static bool CheckIfCanRunInEditMode () {
 		bool isCompilingOrExitingEditMode = false;
 #if UNITY_EDITOR
 		isCompilingOrExitingEditMode |= UnityEditor.EditorApplication.isCompiling;

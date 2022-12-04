@@ -8,7 +8,6 @@ namespace TriangleNet.Voronoi.Legacy
 {
     using System;
     using System.Collections.Generic;
-    using TriangleNet.Topology;
     using TriangleNet.Geometry;
 
     /// <summary>
@@ -16,45 +15,36 @@ namespace TriangleNet.Voronoi.Legacy
     /// </summary>
     public class VoronoiRegion
     {
-        int id;
-        Point generator;
-        List<Point> vertices;
-        bool bounded;
+        private int id;
+        private Point generator;
+        private List<Point> vertices;
+        private bool bounded;
 
         // A map (vertex id) -> (neighbor across adjacent edge)
-        Dictionary<int, VoronoiRegion> neighbors;
+        private Dictionary<int, VoronoiRegion> neighbors;
 
         /// <summary>
         /// Gets the Voronoi region id (which is the same as the generators vertex id).
         /// </summary>
-        public int ID
-        {
-            get { return id; }
-        }
+        public int ID => id;
 
         /// <summary>
         /// Gets the Voronoi regions generator.
         /// </summary>
-        public Point Generator
-        {
-            get { return generator; }
-        }
+        public Point Generator => generator;
 
         /// <summary>
         /// Gets the Voronoi vertices on the regions boundary.
         /// </summary>
-        public ICollection<Point> Vertices
-        {
-            get { return vertices; }
-        }
+        public ICollection<Point> Vertices => vertices;
 
         /// <summary>
         /// Gets or sets whether the Voronoi region is bounded.
         /// </summary>
         public bool Bounded
         {
-            get { return bounded; }
-            set { bounded = value; }
+            get => bounded;
+            set => bounded = value;
         }
 
         public VoronoiRegion(Vertex generator)

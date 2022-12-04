@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class HatchButton : Interactable {
+﻿public class HatchButton : Interactable {
 
     protected override void ShowInteractMessage () {
         Ship ship = FindObjectOfType<Ship> ();
@@ -16,7 +12,7 @@ public class HatchButton : Interactable {
         ShowInteractMessage ();
     }
 
-    void OnValidate () {
+    private void OnValidate () {
         interactMessage = "#set from script#";
     }
 }

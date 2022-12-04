@@ -11,103 +11,102 @@ public class BloomEffect : PostProcessingEffect {
 	/// Prefilter threshold (gamma-encoded)
 	/// Filters out pixels under this level of brightness.
 	public float thresholdGamma {
-		get { return Mathf.Max (_threshold, 0); }
-		set { _threshold = value; }
+		get => Mathf.Max (_threshold, 0);
+		set => _threshold = value;
 	}
 
 	/// Prefilter threshold (linearly-encoded)
 	/// Filters out pixels under this level of brightness.
 	public float thresholdLinear {
-		get { return GammaToLinear (thresholdGamma); }
-		set { _threshold = LinearToGamma (value); }
+		get => GammaToLinear (thresholdGamma);
+		set => _threshold = LinearToGamma (value);
 	}
 
 	[SerializeField]
 	[Tooltip ("Filters out pixels under this level of brightness.")]
-	float _threshold = 0.8f;
+	private float _threshold = 0.8f;
 
 	/// Soft-knee coefficient
 	/// Makes transition between under/over-threshold gradual.
 	public float softKnee {
-		get { return _softKnee; }
-		set { _softKnee = value; }
+		get => _softKnee;
+		set => _softKnee = value;
 	}
 
 	[SerializeField, Range (0, 1)]
 	[Tooltip ("Makes transition between under/over-threshold gradual.")]
-	float _softKnee = 0.5f;
+	private float _softKnee = 0.5f;
 
 	/// Bloom radius
 	/// Changes extent of veiling effects in a screen
 	/// resolution-independent fashion.
 	public float radius {
-		get { return _radius; }
-		set { _radius = value; }
+		get => _radius;
+		set => _radius = value;
 	}
 
 	[SerializeField, Range (1, 7)]
 	[Tooltip ("Changes extent of veiling effects\n" +
 		"in a screen resolution-independent fashion.")]
-	float _radius = 2.5f;
+	private float _radius = 2.5f;
 
 	/// Bloom intensity
 	/// Blend factor of the result image.
 	public float intensity {
-		get { return Mathf.Max (_intensity, 0); }
-		set { _intensity = value; }
+		get => Mathf.Max (_intensity, 0);
+		set => _intensity = value;
 	}
 
 	[SerializeField]
 	[Tooltip ("Blend factor of the result image.")]
-	float _intensity = 0.8f;
+	private float _intensity = 0.8f;
 
 	/// High quality mode
 	/// Controls filter quality and buffer resolution.
 	public bool highQuality {
-		get { return _highQuality; }
-		set { _highQuality = value; }
+		get => _highQuality;
+		set => _highQuality = value;
 	}
 
 	[SerializeField]
 	[Tooltip ("Controls filter quality and buffer resolution.")]
-	bool _highQuality = true;
+	private bool _highQuality = true;
 
 	/// Anti-flicker filter
 	/// Reduces flashing noise with an additional filter.
 	[SerializeField]
 	[Tooltip ("Reduces flashing noise with an additional filter.")]
-	bool _antiFlicker = true;
+	private bool _antiFlicker = true;
 
 	public bool antiFlicker {
-		get { return _antiFlicker; }
-		set { _antiFlicker = value; }
+		get => _antiFlicker;
+		set => _antiFlicker = value;
 	}
 
-	[SerializeField, HideInInspector]
-	Shader _shader;
+	[SerializeField, HideInInspector] private Shader _shader;
 
-	Material _material;
+	private Material _material;
 
-	const int kMaxIterations = 16;
-	RenderTexture[] _blurBuffer1 = new RenderTexture[kMaxIterations];
-	RenderTexture[] _blurBuffer2 = new RenderTexture[kMaxIterations];
+	private const int kMaxIterations = 16;
+	private RenderTexture[] _blurBuffer1 = new RenderTexture[kMaxIterations];
+	private RenderTexture[] _blurBuffer2 = new RenderTexture[kMaxIterations];
 
-	float LinearToGamma (float x) {
+	private float LinearToGamma (float x) {
 		return Mathf.LinearToGammaSpace (x);
 	}
 
-	float GammaToLinear (float x) {
+	private float GammaToLinear (float x) {
 		return Mathf.GammaToLinearSpace (x);
 	}
 
-	void OnEnable () {//
+	private void OnEnable () {//
 		_shader = null;
 		var shader = _shader ? _shader : Shader.Find ("Hidden/Kino/Bloom");
 		_material = new Material (shader);
 		_material.hideFlags = HideFlags.DontSave;
 	}
 
-	void OnDisable () {
+	private void OnDisable () {
 		DestroyImmediate (_material);
 	}
 

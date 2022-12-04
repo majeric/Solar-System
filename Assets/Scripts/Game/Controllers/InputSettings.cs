@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu (menuName = "Settings/Input")]
 
 public class InputSettings : ScriptableObject {
-
-	const float defaultMouseSensitivity = 100;
-	const float defaultMouseSmoothing = 0.2f;
+	private const float defaultMouseSensitivity = 100;
+	private const float defaultMouseSmoothing = 0.2f;
 
 	public float mouseSensitivity;
 	public float mouseSmoothing;

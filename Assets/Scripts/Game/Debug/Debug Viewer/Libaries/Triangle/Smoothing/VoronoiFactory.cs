@@ -11,11 +11,11 @@ namespace TriangleNet.Smoothing
     /// <remarks>
     /// See <see cref="SimpleSmoother"/>.
     /// </remarks>
-    class VoronoiFactory : IVoronoiFactory
+    internal class VoronoiFactory : IVoronoiFactory
     {
-        ObjectPool<Vertex> vertices;
-        ObjectPool<HalfEdge> edges;
-        ObjectPool<Face> faces;
+        private ObjectPool<Vertex> vertices;
+        private ObjectPool<HalfEdge> edges;
+        private ObjectPool<Face> faces;
 
         public VoronoiFactory()
         {
@@ -122,22 +122,19 @@ namespace TriangleNet.Smoothing
             return face;
         }
 
-        class ObjectPool<T> where T : class
+        private class ObjectPool<T> where T : class
         {
-            int index, count;
+            private int index, count;
 
-            T[] pool;
+            private T[] pool;
 
-            public int Count
-            {
-                get { return count; }
-            }
+            public int Count => count;
 
 
             public int Capacity
             {
-                get { return this.pool.Length; }
-                set { Resize(value); }
+                get => this.pool.Length;
+                set => Resize(value);
             }
 
             public ObjectPool(int capacity = 3)

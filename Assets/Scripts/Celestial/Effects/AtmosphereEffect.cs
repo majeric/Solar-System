@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AtmosphereEffect {
-
-	Light light;
+	private Light light;
 	protected Material material;
 
 	public void UpdateSettings (CelestialBodyGenerator generator) {

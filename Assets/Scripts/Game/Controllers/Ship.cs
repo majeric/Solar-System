@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ship : GravityObject {
 
@@ -21,33 +19,33 @@ public class Ship : GravityObject {
 	[Header ("Interact")]
 	public Interactable flightControls;
 
-	Rigidbody rb;
-	Quaternion targetRot;
-	Quaternion smoothedRot;
+	private Rigidbody rb;
+	private Quaternion targetRot;
+	private Quaternion smoothedRot;
 
-	Vector3 thrusterInput;
-	PlayerController pilot;
-	bool shipIsPiloted;
-	int numCollisionTouches;
-	bool hatchOpen;
+	private Vector3 thrusterInput;
+	private PlayerController pilot;
+	private bool shipIsPiloted;
+	private int numCollisionTouches;
+	private bool hatchOpen;
 
-	KeyCode ascendKey = KeyCode.Space;
-	KeyCode descendKey = KeyCode.LeftShift;
-	KeyCode rollCounterKey = KeyCode.Q;
-	KeyCode rollClockwiseKey = KeyCode.E;
-	KeyCode forwardKey = KeyCode.W;
-	KeyCode backwardKey = KeyCode.S;
-	KeyCode leftKey = KeyCode.A;
-	KeyCode rightKey = KeyCode.D;
+	private KeyCode ascendKey = KeyCode.Space;
+	private KeyCode descendKey = KeyCode.LeftShift;
+	private KeyCode rollCounterKey = KeyCode.Q;
+	private KeyCode rollClockwiseKey = KeyCode.E;
+	private KeyCode forwardKey = KeyCode.W;
+	private KeyCode backwardKey = KeyCode.S;
+	private KeyCode leftKey = KeyCode.A;
+	private KeyCode rightKey = KeyCode.D;
 
-	void Awake () {
+	private void Awake () {
 		InitRigidbody ();
 		targetRot = transform.rotation;
 		smoothedRot = transform.rotation;
 		inputSettings.Begin ();
 	}
 
-	void Update () {
+	private void Update () {
 		if (shipIsPiloted) {
 			HandleMovement ();
 		}
@@ -59,7 +57,7 @@ public class Ship : GravityObject {
 		HandleCheats ();
 	}
 
-	void HandleMovement () {
+	private void HandleMovement () {
 		// Thruster input
 		int thrustInputX = GetInputAxis (leftKey, rightKey);
 		int thrustInputY = GetInputAxis (descendKey, ascendKey);
@@ -86,7 +84,7 @@ public class Ship : GravityObject {
 		}
 	}
 
-	void FixedUpdate () {
+	private void FixedUpdate () {
 		// Gravity
 		Vector3 gravity = NBodySimulation.CalculateAcceleration (rb.position);
 		rb.AddForce (gravity, ForceMode.Acceleration);
@@ -100,12 +98,12 @@ public class Ship : GravityObject {
 		}
 	}
 
-	void TeleportToBody (CelestialBody body) {
+	private void TeleportToBody (CelestialBody body) {
 		rb.velocity = body.velocity;
 		rb.MovePosition (body.transform.position + (transform.position - body.transform.position).normalized * body.radius * 2);
 	}
 
-	int GetInputAxis (KeyCode negativeAxis, KeyCode positiveAxis) {
+	private int GetInputAxis (KeyCode negativeAxis, KeyCode positiveAxis) {
 		int axis = 0;
 		if (Input.GetKey (positiveAxis)) {
 			axis++;
@@ -116,7 +114,7 @@ public class Ship : GravityObject {
 		return axis;
 	}
 
-	void HandleCheats () {
+	private void HandleCheats () {
 		if (Universe.cheatsEnabled) {
 			if (Input.GetKeyDown (KeyCode.Return) && IsPiloted && Time.timeScale != 0) {
 				var shipHud = FindObjectOfType<ShipHUD> ();
@@ -127,7 +125,7 @@ public class Ship : GravityObject {
 		}
 	}
 
-	void InitRigidbody () {
+	private void InitRigidbody () {
 		rb = GetComponent<Rigidbody> ();
 		rb.interpolation = RigidbodyInterpolation.Interpolate;
 		rb.useGravity = false;
@@ -160,7 +158,7 @@ public class Ship : GravityObject {
 
 	}
 
-	void StopPilotingShip () {
+	private void StopPilotingShip () {
 		shipIsPiloted = false;
 		pilot.transform.position = pilotSeatPoint.position;
 		pilot.transform.rotation = pilotSeatPoint.rotation;
@@ -170,13 +168,13 @@ public class Ship : GravityObject {
 		pilot.ExitFromSpaceship ();
 	}
 
-	void OnCollisionEnter (Collision other) {
+	private void OnCollisionEnter (Collision other) {
 		if (groundedMask == (groundedMask | (1 << other.gameObject.layer))) {
 			numCollisionTouches++;
 		}
 	}
 
-	void OnCollisionExit (Collision other) {
+	private void OnCollisionExit (Collision other) {
 		if (groundedMask == (groundedMask | (1 << other.gameObject.layer))) {
 			numCollisionTouches--;
 		}
@@ -186,27 +184,11 @@ public class Ship : GravityObject {
 		rb.velocity = velocity;
 	}
 
-	public bool ShowHUD {
-		get {
-			return shipIsPiloted;
-		}
-	}
-	public bool HatchOpen {
-		get {
-			return hatchOpen;
-		}
-	}
+	public bool ShowHUD => shipIsPiloted;
 
-	public bool IsPiloted {
-		get {
-			return shipIsPiloted;
-		}
-	}
+	public bool HatchOpen => hatchOpen;
 
-	public Rigidbody Rigidbody {
-		get {
-			return rb;
-		}
-	}
+	public bool IsPiloted => shipIsPiloted;
 
+	public Rigidbody Rigidbody => rb;
 }

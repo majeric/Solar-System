@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -14,18 +13,18 @@ public class PlanetEffects : PostProcessingEffect {
 	public bool displayOceans = true;
 	public bool displayAtmospheres = true;
 
-	List<EffectHolder> effectHolders;
-	List<float> sortDistances;
+	private List<EffectHolder> effectHolders;
+	private List<float> sortDistances;
 
-	List<Material> postProcessingMaterials;
-	bool active = true;
+	private List<Material> postProcessingMaterials;
+	private bool active = true;
 
 	public override void Render (RenderTexture source, RenderTexture destination) {
 		List<Material> materials = GetMaterials ();
 		CustomPostProcessing.RenderMaterials (source, destination, materials);
 	}
 
-	void Init () {
+	private void Init () {
 		if (effectHolders == null || effectHolders.Count == 0 || !Application.isPlaying) {
 			var generators = FindObjectsOfType<CelestialBodyGenerator> ();
 			effectHolders = new List<EffectHolder> (generators.Length);
@@ -90,7 +89,7 @@ public class PlanetEffects : PostProcessingEffect {
 		return postProcessingMaterials;
 	}
 
-	float CalculateMaxClippingDst (Camera cam) {
+	private float CalculateMaxClippingDst (Camera cam) {
 		float halfHeight = cam.nearClipPlane * Mathf.Tan (cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
 		float halfWidth = halfHeight * cam.aspect;
 		float dstToNearClipPlaneCorner = new Vector3 (halfWidth, halfHeight, cam.nearClipPlane).magnitude;
@@ -117,7 +116,7 @@ public class PlanetEffects : PostProcessingEffect {
 		}
 	}
 
-	void SortFarToNear (Vector3 viewPos) {
+	private void SortFarToNear (Vector3 viewPos) {
 		for (int i = 0; i < effectHolders.Count; i++) {
 			float dstToSurface = effectHolders[i].DstFromSurface (viewPos);
 			sortDistances.Add (dstToSurface);

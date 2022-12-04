@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /*
 	Responsible for the shading of a celestial body.
@@ -25,7 +23,7 @@ public abstract class CelestialBodyShading : ScriptableObject {
 	public ComputeShader shadingDataCompute;
 
 	protected Vector4[] cachedShadingData;
-	ComputeBuffer shadingBuffer;
+	private ComputeBuffer shadingBuffer;
 
 	// 
 	public virtual void Initialize (CelestialBodyShape shape) { }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class LODHandler : MonoBehaviour {
@@ -13,12 +11,12 @@ public class LODHandler : MonoBehaviour {
 	public bool debug;
 	public CelestialBody debugBody;
 
-	Camera cam;
-	Transform camT;
-	CelestialBody[] bodies;
-	CelestialBodyGenerator[] generators;
+	private Camera cam;
+	private Transform camT;
+	private CelestialBody[] bodies;
+	private CelestialBodyGenerator[] generators;
 
-	void Start () {
+	private void Start () {
 		if (Application.isPlaying) {
 			bodies = FindObjectsOfType<CelestialBody> ();
 			generators = new CelestialBodyGenerator[bodies.Length];
@@ -28,7 +26,7 @@ public class LODHandler : MonoBehaviour {
 		}
 	}
 
-	void Update () {
+	private void Update () {
 		DebugLODInfo ();
 
 		if (Application.isPlaying) {
@@ -37,7 +35,7 @@ public class LODHandler : MonoBehaviour {
 
 	}
 
-	void HandleLODs () {
+	private void HandleLODs () {
 		for (int i = 0; i < bodies.Length; i++) {
 			if (generators[i] != null) {
 				float screenHeight = CalculateScreenHeight (bodies[i]);
@@ -48,7 +46,7 @@ public class LODHandler : MonoBehaviour {
 		}
 	}
 
-	int CalculateLODIndex (float screenHeight) {
+	private int CalculateLODIndex (float screenHeight) {
 		if (screenHeight > lod1Threshold) {
 			return 0;
 		} else if (screenHeight > lod2Threshold) {
@@ -57,7 +55,7 @@ public class LODHandler : MonoBehaviour {
 		return 2;
 	}
 
-	void DebugLODInfo () {
+	private void DebugLODInfo () {
 		if (debugBody && debug) {
 			float h = CalculateScreenHeight (debugBody);
 			int index = CalculateLODIndex (h);
@@ -65,7 +63,7 @@ public class LODHandler : MonoBehaviour {
 		}
 	}
 
-	float CalculateScreenHeight (CelestialBody body) {
+	private float CalculateScreenHeight (CelestialBody body) {
 		if (cam == null) {
 			cam = Camera.main;
 			camT = cam.transform;

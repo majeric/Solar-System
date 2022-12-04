@@ -14,7 +14,7 @@ namespace TriangleNet
     /// <summary>
     /// Used for triangle sampling in the <see cref="TriangleLocator"/> class.
     /// </summary>
-    class TriangleSampler : IEnumerable<Triangle>
+    internal class TriangleSampler : IEnumerable<Triangle>
     {
         private const int RANDOM_SEED = 110503;
 

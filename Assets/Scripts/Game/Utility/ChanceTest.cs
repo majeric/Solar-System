@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class ChanceTest : MonoBehaviour {
     public Chance chance;
     public int total;
 
-    void Update () {
+    private void Update () {
         if (Input.GetKeyDown (KeyCode.Space)) {
             chance = new Chance (new System.Random ());
             total++;
@@ -26,7 +24,7 @@ public class ChanceTest : MonoBehaviour {
 }
 
 public class Chance {
-    float value;
+    private float value;
 
     public Chance (System.Random prng) {
         value = (float) prng.NextDouble ();

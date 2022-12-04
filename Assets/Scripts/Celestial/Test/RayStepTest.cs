@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RayStepTest : MonoBehaviour {
 
@@ -8,7 +6,7 @@ public class RayStepTest : MonoBehaviour {
 	public int numSteps = 3;
 	public float displayRad = 0.1f;
 
-	void OnDrawGizmos () {
+	private void OnDrawGizmos () {
 		Vector3 start = Vector3.right * -5;
 		Vector3 end = Vector3.up * 7 + Vector3.right * 3;
 		Gizmos.color = Color.red;

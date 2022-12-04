@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameUI : MonoBehaviour {
 
     public TMPro.TMP_Text interactionInfo;
-    float interactionInfoDisplayTimeRemaining;
-    static GameUI instance;
+    private float interactionInfoDisplayTimeRemaining;
+    private static GameUI instance;
 
-    void Update () {
+    private void Update () {
         if (interactionInfo) {
             interactionInfoDisplayTimeRemaining -= Time.deltaTime;
             interactionInfo.enabled = (interactionInfoDisplayTimeRemaining > 0);
@@ -30,7 +28,7 @@ public class GameUI : MonoBehaviour {
         }
     }
 
-    static GameUI Instance {
+    private static GameUI Instance {
         get {
             if (instance == null) {
                 instance = FindObjectOfType<GameUI> ();

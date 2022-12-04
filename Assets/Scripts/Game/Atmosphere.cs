@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode, ImageEffectAllowedInSceneView]
 public class Atmosphere : CustomImageEffect {
@@ -11,8 +9,8 @@ public class Atmosphere : CustomImageEffect {
 
 	public Color color;
 	public Vector4 testParams;
-	ComputeBuffer buffer;
-	Texture2D falloffTex;
+	private ComputeBuffer buffer;
+	private Texture2D falloffTex;
 	public Gradient falloff;
 	public int gradientRes = 10;
 	public int numSteps = 10;
@@ -23,11 +21,7 @@ public class Atmosphere : CustomImageEffect {
 		public float radius;
 		public float waterRadius;
 
-		public static int Size {
-			get {
-				return sizeof (float) * 5;
-			}
-		}
+		public static int Size => sizeof (float) * 5;
 	}
 
 	public override Material GetMaterial () {

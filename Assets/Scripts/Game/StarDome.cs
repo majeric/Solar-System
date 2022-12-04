@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StarDome : MonoBehaviour {
 
 	public MeshRenderer starPrefab;
 	public Vector2 radiusMinMax;
 	public int count = 1000;
-	const float calibrationDst = 2000;
+	private const float calibrationDst = 2000;
 	public Vector2 brightnessMinMax;
 
-	Camera cam;
+	private Camera cam;
 
-	void Start () {
+	private void Start () {
 		cam = Camera.main;
 		//var sw = System.Diagnostics.Stopwatch.StartNew ();
 		if (cam) {
@@ -29,7 +27,7 @@ public class StarDome : MonoBehaviour {
 		//Debug.Log (sw.ElapsedMilliseconds);
 	}
 
-	float SmallestRandomValue (int iterations) {
+	private float SmallestRandomValue (int iterations) {
 		float r = 1;
 		for (int i = 0; i < iterations; i++) {
 			r = Mathf.Min (r, Random.value);
@@ -37,7 +35,7 @@ public class StarDome : MonoBehaviour {
 		return r;
 	}
 
-	void LateUpdate () {
+	private void LateUpdate () {
 		if (cam != null) {
 			transform.position = cam.transform.position;
 		}

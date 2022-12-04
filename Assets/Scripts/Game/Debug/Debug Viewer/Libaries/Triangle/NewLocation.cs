@@ -18,31 +18,31 @@ namespace TriangleNet
     /// <remarks>
     /// http://www.cise.ufl.edu/~ungor/aCute/index.html
     /// </remarks>
-    class NewLocation
+    internal class NewLocation
     {
-        const double EPS = 1e-50;
+        private const double EPS = 1e-50;
 
-        IPredicates predicates;
+        private IPredicates predicates;
 
-        Mesh mesh;
-        Behavior behavior;
+        private Mesh mesh;
+        private Behavior behavior;
 
         // Work arrays for wegde intersection
-        double[] petalx = new double[20];
-        double[] petaly = new double[20];
-        double[] petalr = new double[20];
-        double[] wedges = new double[500];
-        double[] initialConvexPoly = new double[500];
+        private double[] petalx = new double[20];
+        private double[] petaly = new double[20];
+        private double[] petalr = new double[20];
+        private double[] wedges = new double[500];
+        private double[] initialConvexPoly = new double[500];
 
         // Work arrays for smoothing
-        double[] points_p = new double[500];
-        double[] points_q = new double[500];
-        double[] points_r = new double[500];
+        private double[] points_p = new double[500];
+        private double[] points_q = new double[500];
+        private double[] points_r = new double[500];
 
         // Work arrays for convex polygon split
-        double[] poly1 = new double[100];
-        double[] poly2 = new double[100];
-        double[][] polys = new double[3][];
+        private double[] poly1 = new double[100];
+        private double[] poly2 = new double[100];
+        private double[][] polys = new double[3][];
 
         public NewLocation(Mesh mesh, IPredicates predicates)
         {

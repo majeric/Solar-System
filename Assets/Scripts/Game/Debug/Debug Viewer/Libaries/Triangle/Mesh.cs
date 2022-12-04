@@ -24,14 +24,14 @@ namespace TriangleNet
     {
         #region Variables
 
-        IPredicates predicates;
+        private IPredicates predicates;
 
-        ILog<LogItem> logger;
+        private ILog<LogItem> logger;
 
-        QualityMesher qualityMesher;
+        private QualityMesher qualityMesher;
 
         // Stack that maintains a list of recently flipped triangles.
-        Stack<Otri> flipstack;
+        private Stack<Otri> flipstack;
 
         // TODO: Check if custom hashmap implementation could be faster.
 
@@ -80,42 +80,27 @@ namespace TriangleNet
         /// <summary>
         /// Gets the mesh bounding box.
         /// </summary>
-        public Rectangle Bounds
-        {
-            get { return this.bounds; }
-        }
+        public Rectangle Bounds => this.bounds;
 
         /// <summary>
         /// Gets the mesh vertices.
         /// </summary>
-        public ICollection<Vertex> Vertices
-        {
-            get { return this.vertices.Values; }
-        }
+        public ICollection<Vertex> Vertices => this.vertices.Values;
 
         /// <summary>
         /// Gets the mesh holes.
         /// </summary>
-        public IList<Point> Holes
-        {
-            get { return this.holes; }
-        }
+        public IList<Point> Holes => this.holes;
 
         /// <summary>
         /// Gets the mesh triangles.
         /// </summary>
-        public ICollection<Triangle> Triangles
-        {
-            get { return this.triangles; }
-        }
+        public ICollection<Triangle> Triangles => this.triangles;
 
         /// <summary>
         /// Gets the mesh segments.
         /// </summary>
-        public ICollection<SubSegment> Segments
-        {
-            get { return this.subsegs.Values; }
-        }
+        public ICollection<SubSegment> Segments => this.subsegs.Values;
 
         /// <summary>
         /// Gets the mesh edges.
@@ -135,34 +120,22 @@ namespace TriangleNet
         /// <summary>
         /// Gets the number of input vertices.
         /// </summary>
-        public int NumberOfInputPoints
-        {
-            get { return invertices; }
-        }
+        public int NumberOfInputPoints => invertices;
 
         /// <summary>
         /// Gets the number of mesh edges.
         /// </summary>
-        public int NumberOfEdges
-        {
-            get { return (3 * triangles.Count + hullsize) / 2; }
-        }
+        public int NumberOfEdges => (3 * triangles.Count + hullsize) / 2;
 
         /// <summary>
         /// Indicates whether the input is a PSLG or a point set.
         /// </summary>
-        public bool IsPolygon
-        {
-            get { return this.insegments > 0; }
-        }
+        public bool IsPolygon => this.insegments > 0;
 
         /// <summary>
         /// Gets the current node numbering.
         /// </summary>
-        public NodeNumbering CurrentNumbering
-        {
-            get { return numbering; }
-        }
+        public NodeNumbering CurrentNumbering => numbering;
 
         #endregion
 

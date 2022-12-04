@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -9,14 +8,15 @@ public class OceanMaskRenderer : MonoBehaviour {
 
 	[HideInInspector]
 	public RenderTexture oceanMaskTexture;
-	CelestialBodyGenerator[] oceanBodies;
-	RenderTexture prev;
 
-	void Update () {
+	private CelestialBodyGenerator[] oceanBodies;
+	private RenderTexture prev;
+
+	private void Update () {
 		Init ();
 	}
 
-	void Init () {
+	private void Init () {
 		if (!Application.isPlaying || oceanBodies == null) {
 			var allBodies = FindObjectsOfType<CelestialBodyGenerator> ();
 			var oceanBodiesList = new List<CelestialBodyGenerator> ();
@@ -32,7 +32,7 @@ public class OceanMaskRenderer : MonoBehaviour {
 
 	}
 
-	void RenderOceanMask (RenderTexture screenTex) {
+	private void RenderOceanMask (RenderTexture screenTex) {
 
 		Init ();
 
@@ -67,7 +67,7 @@ public class OceanMaskRenderer : MonoBehaviour {
 
 	}
 
-	void OnDestroy () {
+	private void OnDestroy () {
 		if (oceanMaskTexture != null) {
 			oceanMaskTexture.Release ();
 		}

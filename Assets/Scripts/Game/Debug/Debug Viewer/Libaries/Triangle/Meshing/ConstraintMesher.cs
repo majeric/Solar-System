@@ -16,15 +16,15 @@ namespace TriangleNet.Meshing
 
     internal class ConstraintMesher
     {
-        IPredicates predicates;
+        private IPredicates predicates;
 
-        Mesh mesh;
-        Behavior behavior;
-        TriangleLocator locator;
+        private Mesh mesh;
+        private Behavior behavior;
+        private TriangleLocator locator;
 
-        List<Triangle> viri;
+        private List<Triangle> viri;
 
-        ILog<LogItem> logger;
+        private ILog<LogItem> logger;
 
         public ConstraintMesher(Mesh mesh, Configuration config)
         {
@@ -368,7 +368,7 @@ namespace TriangleNet.Meshing
         /// The second phase actually eliminates the infected triangles. It also
         /// eliminates orphaned vertices.
         /// </remarks>
-        void Plague()
+        private void Plague()
         {
             Otri testtri = default(Otri);
             Otri neighbor = default(Otri);

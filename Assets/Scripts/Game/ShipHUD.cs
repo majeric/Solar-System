@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ShipHUD : MonoBehaviour {
@@ -24,14 +21,14 @@ public class ShipHUD : MonoBehaviour {
 	public Material velocityIndicatorMat;
 	public Material arrowHeadMat;
 
-	CelestialBody lockedBody;
-	Camera cam;
-	Transform camT;
-	LockOnUI lockOnUI;
-	Ship ship;
-	CelestialBody aimedBody;
+	private CelestialBody lockedBody;
+	private Camera cam;
+	private Transform camT;
+	private LockOnUI lockOnUI;
+	private Ship ship;
+	private CelestialBody aimedBody;
 
-	void Start () {
+	private void Start () {
 		// Need to draw UI AFTER floating origin updates, otherwise may flicker when origin changes
 		FindObjectOfType<EndlessManager> ().PostFloatingOriginUpdate += UpdateUI;
 
@@ -41,7 +38,7 @@ public class ShipHUD : MonoBehaviour {
 		velocityVertical.head.material = new Material (arrowHeadMat);
 	}
 
-	void Init () {
+	private void Init () {
 		if (cam == null) {
 			cam = Camera.main;
 		}
@@ -56,7 +53,7 @@ public class ShipHUD : MonoBehaviour {
 		}
 	}
 
-	void UpdateUI () {
+	private void UpdateUI () {
 		Init ();
 
 		centreDot.rectTransform.localScale = Vector3.one * dotSize;
@@ -91,13 +88,13 @@ public class ShipHUD : MonoBehaviour {
 		}
 	}
 
-	void SetHudActive (bool active) {
+	private void SetHudActive (bool active) {
 		planetName.gameObject.SetActive (active);
 		velocityHorizontal.SetActive (active);
 		velocityVertical.SetActive (active);
 	}
 
-	void DrawPlanetHUD (CelestialBody planet) {
+	private void DrawPlanetHUD (CelestialBody planet) {
 		SetHudActive (true);
 		Vector3 dirToPlanet = (planet.transform.position - camT.position).normalized;
 		float dstToPlanetCentre = (planet.transform.position - camT.position).magnitude;
@@ -151,7 +148,7 @@ public class ShipHUD : MonoBehaviour {
 
 	}
 
-	CelestialBody FindAimedBody () {
+	private CelestialBody FindAimedBody () {
 		CelestialBody[] bodies = FindObjectsOfType<CelestialBody> ();
 		CelestialBody aimedBody = null;
 
@@ -200,18 +197,18 @@ public class ShipHUD : MonoBehaviour {
 		return aimedBody;
 	}
 
-	bool PointIsOnScreen (Vector3 worldPoint) {
+	private bool PointIsOnScreen (Vector3 worldPoint) {
 		Vector3 p = cam.WorldToViewportPoint (worldPoint);
 		return p.x >= 0 && p.x <= 1 && p.y >= 0 && p.y <= 1 && p.z > 0;
 	}
 
-	static string FormatDistance (float distance) {
+	private static string FormatDistance (float distance) {
 		const int maxMetreDst = 1000;
 		string dstString = (distance < maxMetreDst) ? (int) distance + "m" : $"{distance/1000:0}km";
 		return dstString;
 	}
 
-	Vector3 CalculateRelativeVelocity (CelestialBody body) {
+	private Vector3 CalculateRelativeVelocity (CelestialBody body) {
 		Vector3 dirToBody = (body.transform.position - camT.position).normalized;
 		Vector3 relativeVelocityWorldSpace = ship.Rigidbody.velocity - body.velocity;
 
@@ -231,7 +228,7 @@ public class ShipHUD : MonoBehaviour {
 		return relativeV;
 	}
 
-	Vector2 CalculateUIPos (Vector3 worldPos) {
+	private Vector2 CalculateUIPos (Vector3 worldPos) {
 		const int referenceWidth = 1920;
 		const int referenceHeight = 1080;
 
@@ -245,11 +242,7 @@ public class ShipHUD : MonoBehaviour {
 		return new Vector2 ((viewportCentre.x - 0.5f) * referenceWidth, (viewportCentre.y - 0.5f) * referenceHeight);
 	}
 
-	public CelestialBody LockedBody {
-		get {
-			return lockedBody;
-		}
-	}
+	public CelestialBody LockedBody => lockedBody;
 
 	[System.Serializable]
 	public struct VelocityIndicator {

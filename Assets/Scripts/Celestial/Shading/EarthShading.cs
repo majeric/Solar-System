@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu (menuName = "Celestial Body/Earth-Like/Earth Shading")]
 public class EarthShading : CelestialBodyShading {
@@ -28,7 +26,7 @@ public class EarthShading : CelestialBodyShading {
 		}
 	}
 
-	void ApplyColours (Material material, EarthColours colours) {
+	private void ApplyColours (Material material, EarthColours colours) {
 		material.SetColor ("_ShoreLow", colours.shoreColLow);
 		material.SetColor ("_ShoreHigh", colours.shoreColHigh);
 
@@ -42,7 +40,7 @@ public class EarthShading : CelestialBodyShading {
 		material.SetColor ("_SteepHigh", colours.steepHigh);
 	}
 
-	void SetRandomColours (Material material) {
+	private void SetRandomColours (Material material) {
 		PRNG random = new PRNG (seed);
 		//randomizedCols.shoreCol = ColourHelper.Random (random, 0.3f, 0.7f, 0.4f, 0.8f);
 		randomizedCols.flatColLowA = ColourHelper.Random (random, 0.45f, 0.6f, 0.7f, 0.8f);

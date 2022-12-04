@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent (typeof (Rigidbody))]
@@ -11,13 +10,13 @@ public class CelestialBody : GravityObject {
     public float surfaceGravity;
     public Vector3 initialVelocity;
     public string bodyName = "Unnamed";
-    Transform meshHolder;
+    private Transform meshHolder;
 
     public Vector3 velocity { get; private set; }
     public float mass { get; private set; }
-    Rigidbody rb;
+    private Rigidbody rb;
 
-    void Awake () {
+    private void Awake () {
 
         rb = GetComponent<Rigidbody> ();
         velocity = initialVelocity;
@@ -45,7 +44,7 @@ public class CelestialBody : GravityObject {
 
     }
 
-    void OnValidate () {
+    private void OnValidate () {
         RecalculateMass ();
         if (GetComponentInChildren<CelestialBodyGenerator> ()) {
             GetComponentInChildren<CelestialBodyGenerator> ().transform.localScale = Vector3.one * radius;
@@ -67,10 +66,5 @@ public class CelestialBody : GravityObject {
         }
     }
 
-    public Vector3 Position {
-        get {
-            return rb.position;
-        }
-    }
-
+    public Vector3 Position => rb.position;
 }

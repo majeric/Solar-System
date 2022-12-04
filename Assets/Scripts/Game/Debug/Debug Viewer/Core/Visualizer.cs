@@ -9,7 +9,7 @@ public static class Visualizer {
     public static Color activeColour = Color.black;
     public static Style activeStyle = Style.Unlit;
 
-    const float lineThicknessFactor = 1 / 30f;
+    private const float lineThicknessFactor = 1 / 30f;
 
     // --------Style Functions--------
 

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
 
 public static class Timer {
-	static Dictionary<string, Stopwatch> timers;
+	private static Dictionary<string, Stopwatch> timers;
 
 	static Timer () {
 		if (timers == null) {

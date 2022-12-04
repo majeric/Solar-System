@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using static UnityEngine.Vector3;
 
 [ExecuteInEditMode]
@@ -18,7 +16,7 @@ public class RandomTest : MonoBehaviour {
 	[Range (0, 1)]
 	public float biasStrength;
 
-	void Update () {
+	private void Update () {
 
 		int[] buckets = new int[numBuckets];
 		PRNG random = new PRNG (seed);

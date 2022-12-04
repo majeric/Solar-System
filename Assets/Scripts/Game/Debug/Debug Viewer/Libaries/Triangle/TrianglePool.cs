@@ -8,7 +8,6 @@ namespace TriangleNet
 {
     using System;
     using System.Collections.Generic;
-    using TriangleNet.Geometry;
     using TriangleNet.Topology;
 
     public class TrianglePool : ICollection<Triangle>
@@ -17,16 +16,16 @@ namespace TriangleNet
         private const int BLOCKSIZE = 1024;
 
         // The total number of currently allocated triangles.
-        int size;
+        private int size;
 
         // The number of triangles currently used.
-        int count;
+        private int count;
 
         // The pool.
-        Triangle[][] pool;
+        private Triangle[][] pool;
 
         // A stack of free triangles.
-        Stack<Triangle> stack;
+        private Stack<Triangle> stack;
 
         public TrianglePool()
         {
@@ -218,15 +217,9 @@ namespace TriangleNet
             }
         }
 
-        public int Count
-        {
-            get { return count - stack.Count; }
-        }
+        public int Count => count - stack.Count;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(Triangle item)
         {
@@ -243,17 +236,17 @@ namespace TriangleNet
             return GetEnumerator();
         }
 
-        class Enumerator : IEnumerator<Triangle>
+        private class Enumerator : IEnumerator<Triangle>
         {
             // TODO: enumerator should be able to tell if collection changed.
 
-            int count;
+            private int count;
 
-            Triangle[][] pool;
+            private Triangle[][] pool;
 
-            Triangle current;
+            private Triangle current;
 
-            int index, offset;
+            private int index, offset;
 
             public Enumerator(TrianglePool pool)
             {
@@ -264,19 +257,13 @@ namespace TriangleNet
                 offset = 0;
             }
 
-            public Triangle Current
-            {
-                get { return current; }
-            }
+            public Triangle Current => current;
 
             public void Dispose()
             {
             }
 
-            object System.Collections.IEnumerator.Current
-            {
-                get { return current; }
-            }
+            object System.Collections.IEnumerator.Current => current;
 
             public bool MoveNext()
             {

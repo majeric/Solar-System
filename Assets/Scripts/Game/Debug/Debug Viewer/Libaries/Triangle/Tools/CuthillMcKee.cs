@@ -16,7 +16,7 @@ namespace TriangleNet.Tools
     public class CuthillMcKee
     {
         // The adjacency matrix of the mesh.
-        AdjacencyMatrix matrix;
+        private AdjacencyMatrix matrix;
 
         /// <summary>
         /// Gets the permutation vector for the Reverse Cuthill-McKee numbering.
@@ -78,7 +78,7 @@ namespace TriangleNet.Tools
         /// For each connected component in the graph, the routine obtains
         /// an ordering by calling RCM.
         /// </remarks>
-        int[] GenerateRcm()
+        private int[] GenerateRcm()
         {
             // Number of nodes in the mesh.
             int n = matrix.N;
@@ -155,7 +155,7 @@ namespace TriangleNet.Tools
         ///
         ///    When done, reverse the ordering.
         /// </remarks>
-        void Rcm(int root, int[] mask, int[] perm, int offset, ref int iccsze)
+        private void Rcm(int root, int[] mask, int[] perm, int offset, ref int iccsze)
         {
             int[] pcol = matrix.ColumnPointers;
             int[] irow = matrix.RowIndices;
@@ -311,7 +311,7 @@ namespace TriangleNet.Tools
         ///    ACM Transactions on Mathematical Software,
         ///    Volume 2, pages 378-387, 1976.
         /// </remarks>
-        void FindRoot(ref int root, int[] mask, ref int level_num, int[] level_row,
+        private void FindRoot(ref int root, int[] mask, ref int level_num, int[] level_row,
             int[] level, int offset)
         {
             int[] pcol = matrix.ColumnPointers;
@@ -424,7 +424,7 @@ namespace TriangleNet.Tools
         ///    Computer Solution of Large Sparse Positive Definite Systems,
         ///    Prentice Hall, 1981.
         /// </remarks>
-        void GetLevelSet(ref int root, int[] mask, ref int level_num, int[] level_row,
+        private void GetLevelSet(ref int root, int[] mask, ref int level_num, int[] level_row,
             int[] level, int offset)
         {
             int[] pcol = matrix.ColumnPointers;
@@ -512,7 +512,7 @@ namespace TriangleNet.Tools
         ///    Computer Solution of Large Sparse Positive Definite Systems,
         ///    Prentice Hall, 1981.
         /// </remarks>
-        void Degree(int root, int[] mask, int[] deg, ref int iccsze, int[] ls, int offset)
+        private void Degree(int root, int[] mask, int[] deg, ref int iccsze, int[] ls, int offset)
         {
             int[] pcol = matrix.ColumnPointers;
             int[] irow = matrix.RowIndices;
@@ -593,7 +593,7 @@ namespace TriangleNet.Tools
         /// The matrix is defined by the adjacency information and a permutation.  
         /// The routine also computes the bandwidth and the size of the envelope.
         /// </remarks>
-        int PermBandwidth(int[] perm, int[] perm_inv)
+        private int PermBandwidth(int[] perm, int[] perm_inv)
         {
             int[] pcol = matrix.ColumnPointers;
             int[] irow = matrix.RowIndices;
@@ -624,7 +624,7 @@ namespace TriangleNet.Tools
         /// <param name="n">Number of items permuted.</param>
         /// <param name="perm">PERM[N], a permutation.</param>
         /// <returns>The inverse permutation.</returns>
-        int[] PermInverse(int[] perm)
+        private int[] PermInverse(int[] perm)
         {
             int n = matrix.N;
 
@@ -651,7 +651,7 @@ namespace TriangleNet.Tools
         ///   Output:
         ///     A = ( 15, 14, 13, 12, 11 ).
         /// </example>
-        void ReverseVector(int[] a, int offset, int size)
+        private void ReverseVector(int[] a, int offset, int size)
         {
             int i;
             int j;
@@ -666,7 +666,7 @@ namespace TriangleNet.Tools
             return;
         }
 
-        void Shift(int[] a, bool up)
+        private void Shift(int[] a, bool up)
         {
             int length = a.Length;
 

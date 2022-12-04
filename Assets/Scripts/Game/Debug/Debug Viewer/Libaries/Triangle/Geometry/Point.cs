@@ -52,8 +52,8 @@ namespace TriangleNet.Geometry
         /// </summary>
         public int ID
         {
-            get { return this.id; }
-            set { this.id = value; }
+            get => this.id;
+            set => this.id = value;
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace TriangleNet.Geometry
         /// </summary>
         public double X
         {
-            get { return this.x; }
-            set { this.x = value; }
+            get => this.x;
+            set => this.x = value;
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace TriangleNet.Geometry
         /// </summary>
         public double Y
         {
-            get { return this.y; }
-            set { this.y = value; }
+            get => this.y;
+            set => this.y = value;
         }
 
 #if USE_Z
@@ -93,8 +93,8 @@ namespace TriangleNet.Geometry
         /// </remarks>
         public int Label
         {
-            get { return this.label; }
-            set { this.label = value; }
+            get => this.label;
+            set => this.label = value;
         }
 
         #endregion

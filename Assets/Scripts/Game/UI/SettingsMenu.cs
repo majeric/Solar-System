@@ -1,21 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class SettingsMenu : MonoBehaviour {
-
-	bool inMenu;
+	private bool inMenu;
 	public GameObject menuPanel;
 	public InputSettings inputSettings;
 	public TMP_InputField mouseSensitivity;
 	public UnityEngine.UI.Slider mouseSmoothingSlider;
 
-	void Awake () {
+	private void Awake () {
 		menuPanel.SetActive (false);
 	}
 
-	void Update () {
+	private void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.P)) {
 			if (inMenu) {
 				CloseMenu ();

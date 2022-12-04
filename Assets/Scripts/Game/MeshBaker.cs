@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
+﻿using System.Collections.Generic;
 using Unity.Jobs;
 using UnityEngine;
 
 public static class MeshBaker {
-
-	static Dictionary<Mesh, JobHandle> jobsByMesh;
+	private static Dictionary<Mesh, JobHandle> jobsByMesh;
 
 	static MeshBaker () {
 		jobsByMesh = new Dictionary<Mesh, JobHandle> ();
@@ -36,8 +33,7 @@ public static class MeshBaker {
 }
 
 public struct BakeJob : IJob {
-
-	int meshID;
+	private int meshID;
 	public BakeJob (int meshID) {
 		this.meshID = meshID;
 	}

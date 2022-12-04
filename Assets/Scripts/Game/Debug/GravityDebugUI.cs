@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GravityDebugUI : MonoBehaviour {
 	public TMPro.TMP_Text info;
-	bool show;
+	private bool show;
 
-	void Update () {
+	private void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			show = !show;
 		}
@@ -21,7 +20,7 @@ public class GravityDebugUI : MonoBehaviour {
 		}
 	}
 
-	static string[] GetGravityInfo (Vector3 point, CelestialBody ignore = null) {
+	private static string[] GetGravityInfo (Vector3 point, CelestialBody ignore = null) {
 		CelestialBody[] bodies = GameObject.FindObjectsOfType<CelestialBody> ();
 		Vector3 totalAcc = Vector3.zero;
 
@@ -49,7 +48,7 @@ public class GravityDebugUI : MonoBehaviour {
 		return info;
 	}
 
-	struct FloatAndString {
+	private struct FloatAndString {
 		public float floatVal;
 		public string stringVal;
 	}

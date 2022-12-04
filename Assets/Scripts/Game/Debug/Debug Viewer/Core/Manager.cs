@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Visualization.MeshGeneration;
 
@@ -9,15 +7,14 @@ namespace Visualization {
 	public enum Style { Diffuse, Unlit, UnlitAlpha }
 
 	public static class Manager {
-
-		static readonly string[] shaderPaths = {
+		private static readonly string[] shaderPaths = {
 			"Visualizer/Diffuse",
 			"Visualizer/Unlit",
 			"Visualizer/UnlitColorAlpha"
 		};
 
-		static Material[] materials;
-		static MaterialPropertyBlock materialProperties;
+		private static Material[] materials;
+		private static MaterialPropertyBlock materialProperties;
 
 		// Cached meshes:
 		// These are meshes that don't change, in contrast to dynamic meshes (like an arc, where the angle can change)
@@ -25,10 +22,10 @@ namespace Visualization {
 		public static Mesh sphereMesh;
 		public static Mesh cylinderMesh;
 
-		static Queue<Mesh> inactiveMeshes;
-		static List<VisualElement> drawList;
+		private static Queue<Mesh> inactiveMeshes;
+		private static List<VisualElement> drawList;
 
-		static int lastFrameInputReceived;
+		private static int lastFrameInputReceived;
 
 		static Manager () {
 			Camera.onPreCull -= Draw;
@@ -37,7 +34,7 @@ namespace Visualization {
 			Init ();
 		}
 
-		static void Init () {
+		private static void Init () {
 			if (sphereMesh == null) {
 				inactiveMeshes = new Queue<Mesh> ();
 				materialProperties = new MaterialPropertyBlock ();
@@ -89,7 +86,7 @@ namespace Visualization {
 		}
 
 		// Draw all items in the drawList on each game/scene camera
-		static void Draw (Camera camera) {
+		private static void Draw (Camera camera) {
 			if (camera && Time.frameCount == lastFrameInputReceived) {
 				for (int i = 0; i < drawList.Count; i++) {
 					VisualElement drawData = drawList[i];

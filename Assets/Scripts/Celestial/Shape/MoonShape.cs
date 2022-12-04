@@ -20,7 +20,7 @@ public class MoonShape : CelestialBodyShape {
 		heightMapCompute.SetVector ("testParams", testParams);
 	}
 
-	void SetCraterSettings (PRNG prng, int seed, bool randomizeValues) {
+	private void SetCraterSettings (PRNG prng, int seed, bool randomizeValues) {
 		if (randomizeValues) {
 			var chance = new Chance (prng);
 			if (chance.Percent (70)) { // Medium amount of mostly small to medium craters
@@ -35,7 +35,7 @@ public class MoonShape : CelestialBodyShape {
 		}
 	}
 
-	void SetShapeNoiseSettings (PRNG prng, bool randomizeValues) {
+	private void SetShapeNoiseSettings (PRNG prng, bool randomizeValues) {
 		const string suffix = "_shape";
 		if (randomizeValues) {
 			var chance = new Chance (prng);
@@ -59,7 +59,7 @@ public class MoonShape : CelestialBodyShape {
 		}
 	}
 
-	void SetRidgeNoiseSettings (PRNG prng, bool randomizeValues) {
+	private void SetRidgeNoiseSettings (PRNG prng, bool randomizeValues) {
 		const string ridgeSuffix = "_ridge";
 		const string detailSuffix = "_ridge2";
 		if (randomizeValues) {

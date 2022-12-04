@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TriangleNet.Geometry;
 using UnityEngine;
@@ -69,7 +68,7 @@ public class Triangulator {
         }
     }
 
-    static IEnumerable<Vertex> PointsToVertices (IEnumerable<Vector2> points, int startI = 0) {
+    private static IEnumerable<Vertex> PointsToVertices (IEnumerable<Vector2> points, int startI = 0) {
         var verts = new Vertex[points.Count ()];
         int i = 0;
         foreach (var p in points) {

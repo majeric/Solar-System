@@ -89,10 +89,7 @@ namespace TriangleNet.Geometry
         /// <summary>
         /// Gets the vertex type.
         /// </summary>
-        public VertexType Type
-        {
-            get { return this.type; }
-        }
+        public VertexType Type => this.type;
 
         /// <summary>
         /// Gets the specified coordinate of the vertex.

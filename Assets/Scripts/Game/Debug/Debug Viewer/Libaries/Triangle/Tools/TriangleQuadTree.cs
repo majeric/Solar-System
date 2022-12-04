@@ -16,7 +16,7 @@ namespace TriangleNet.Tools
     /// </summary>
     public class TriangleQuadTree
     {
-        QuadNode root;
+        private QuadNode root;
 
         internal ITriangle[] triangles;
 
@@ -117,24 +117,24 @@ namespace TriangleNet.Tools
         /// <summary>
         /// A node of the quadtree.
         /// </summary>
-        class QuadNode
+        private class QuadNode
         {
-            const int SW = 0;
-            const int SE = 1;
-            const int NW = 2;
-            const int NE = 3;
+            private const int SW = 0;
+            private const int SE = 1;
+            private const int NW = 2;
+            private const int NE = 3;
 
-            const double EPS = 1e-6;
+            private const double EPS = 1e-6;
 
-            static readonly byte[] BITVECTOR = { 0x1, 0x2, 0x4, 0x8 };
+            private static readonly byte[] BITVECTOR = { 0x1, 0x2, 0x4, 0x8 };
 
-            Rectangle bounds;
-            Point pivot;
-            TriangleQuadTree tree;
-            QuadNode[] regions;
-            List<int> triangles;
+            private Rectangle bounds;
+            private Point pivot;
+            private TriangleQuadTree tree;
+            private QuadNode[] regions;
+            private List<int> triangles;
 
-            byte bitRegions;
+            private byte bitRegions;
 
             public QuadNode(Rectangle box, TriangleQuadTree tree)
                 : this(box, tree, false)
@@ -229,7 +229,7 @@ namespace TriangleNet.Tools
                 }
             }
 
-            void AddTriangleToRegion(Point[] triangle, int index)
+            private void AddTriangleToRegion(Point[] triangle, int index)
             {
                 bitRegions = 0;
                 if (TriangleQuadTree.IsPointInTriangle(pivot, triangle[0], triangle[1], triangle[2]))
@@ -251,7 +251,7 @@ namespace TriangleNet.Tools
                 }
             }
 
-            void FindTriangleIntersections(Point[] triangle, int index)
+            private void FindTriangleIntersections(Point[] triangle, int index)
             {
                 // PLEASE NOTE:
                 // Handling of component comparison is tightly associated with the implementation 
@@ -282,7 +282,7 @@ namespace TriangleNet.Tools
                 }
             }
 
-            void FindIntersectionsWithX(double dx, double dy, Point[] triangle, int index, int k)
+            private void FindIntersectionsWithX(double dx, double dy, Point[] triangle, int index, int k)
             {
                 double t;
 
@@ -340,7 +340,7 @@ namespace TriangleNet.Tools
                 }
             }
 
-            void FindIntersectionsWithY(double dx, double dy, Point[] triangle, int index, int k)
+            private void FindIntersectionsWithY(double dx, double dy, Point[] triangle, int index, int k)
             {
                 double t, xComponent;
 
@@ -398,7 +398,7 @@ namespace TriangleNet.Tools
                 }
             }
 
-            int FindRegion(Point point)
+            private int FindRegion(Point point)
             {
                 int b = 2;
                 if (point.y < pivot.y)
@@ -412,7 +412,7 @@ namespace TriangleNet.Tools
                 return b;
             }
 
-            void AddToRegion(int index, int region)
+            private void AddToRegion(int index, int region)
             {
                 //if (!(m_bitRegions & BITVECTOR[region]))
                 if ((bitRegions & BITVECTOR[region]) == 0)

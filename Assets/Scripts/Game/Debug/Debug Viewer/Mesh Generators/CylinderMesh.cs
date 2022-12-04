@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Visualization.MeshGeneration {
     public static class CylinderMesh {
-
-        const int resolution = 20;
+        private const int resolution = 20;
 
         public static void GenerateMesh (Mesh mesh) {
 

@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FPSTest : MonoBehaviour {
 
 	public TMPro.TMP_Text fpsUI;
 	public int numFrames = 5;
-	float[] dts;
-	int i = 0;
+	private float[] dts;
+	private int i = 0;
 
 	// Start is called before the first frame update
-	void Start () {
+	private void Start () {
 		dts = new float[numFrames];
 	}
 
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		dts[i] = Time.deltaTime * 1000;
 		i++;
 		i %= numFrames;
@@ -37,7 +35,7 @@ public class FPSTest : MonoBehaviour {
 		}
 	}
 
-	string ToFPS (float millis) {
+	private string ToFPS (float millis) {
 		float fps = 1000 / millis;
 		return (((int) fps * 10000) / 10000f) + "";
 	}

@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EndlessManager : MonoBehaviour {
 
     public float distanceThreshold = 1000;
-    List<Transform> physicsObjects;
-    Ship ship;
-    PlayerController player;
-    Camera playerCamera;
+    private List<Transform> physicsObjects;
+    private Ship ship;
+    private PlayerController player;
+    private Camera playerCamera;
 
     public event System.Action PostFloatingOriginUpdate;
 
-    void Awake () {
+    private void Awake () {
         var ship = FindObjectOfType<Ship> ();
         var player = FindObjectOfType<PlayerController> ();
         var bodies = FindObjectsOfType<CelestialBody> ();
@@ -27,14 +26,14 @@ public class EndlessManager : MonoBehaviour {
         playerCamera = Camera.main;
     }
 
-    void LateUpdate () {
+    private void LateUpdate () {
         UpdateFloatingOrigin ();
         if (PostFloatingOriginUpdate != null) {
             PostFloatingOriginUpdate ();
         }
     }
 
-    void UpdateFloatingOrigin () {
+    private void UpdateFloatingOrigin () {
         Vector3 originOffset = playerCamera.transform.position;
         float dstFromOrigin = originOffset.magnitude;
 

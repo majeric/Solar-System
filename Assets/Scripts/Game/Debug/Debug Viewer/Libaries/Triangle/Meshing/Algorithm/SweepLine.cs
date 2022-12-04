@@ -18,20 +18,20 @@ namespace TriangleNet.Meshing.Algorithm
     /// </summary>
     public class SweepLine : ITriangulator
     {
-        static int randomseed = 1;
-        static int SAMPLERATE = 10;
+        private static int randomseed = 1;
+        private static int SAMPLERATE = 10;
 
-        static int randomnation(int choices)
+        private static int randomnation(int choices)
         {
             randomseed = (randomseed * 1366 + 150889) % 714025;
             return randomseed / (714025 / choices + 1);
         }
 
-        IPredicates predicates;
+        private IPredicates predicates;
 
-        Mesh mesh;
-        double xminextreme; // Nonexistent x value used as a flag in sweepline.
-        List<SplayNode> splaynodes;
+        private Mesh mesh;
+        private double xminextreme; // Nonexistent x value used as a flag in sweepline.
+        private List<SplayNode> splaynodes;
 
         public IMesh Triangulate(IList<Vertex> points, Configuration config)
         {
@@ -257,7 +257,7 @@ namespace TriangleNet.Meshing.Algorithm
 
         #region Heap
 
-        void HeapInsert(SweepEvent[] heap, int heapsize, SweepEvent newevent)
+        private void HeapInsert(SweepEvent[] heap, int heapsize, SweepEvent newevent)
         {
             double eventx, eventy;
             int eventnum;
@@ -290,7 +290,7 @@ namespace TriangleNet.Meshing.Algorithm
             newevent.heapposition = eventnum;
         }
 
-        void Heapify(SweepEvent[] heap, int heapsize, int eventnum)
+        private void Heapify(SweepEvent[] heap, int heapsize, int eventnum)
         {
             SweepEvent thisevent;
             double eventx, eventy;
@@ -343,7 +343,7 @@ namespace TriangleNet.Meshing.Algorithm
             }
         }
 
-        void HeapDelete(SweepEvent[] heap, int heapsize, int eventnum)
+        private void HeapDelete(SweepEvent[] heap, int heapsize, int eventnum)
         {
             SweepEvent moveevent;
             double eventx, eventy;
@@ -379,7 +379,7 @@ namespace TriangleNet.Meshing.Algorithm
             Heapify(heap, heapsize - 1, eventnum);
         }
 
-        void CreateHeap(out SweepEvent[] eventheap, int size)
+        private void CreateHeap(out SweepEvent[] eventheap, int size)
         {
             Vertex thisvertex;
             int maxevents;
@@ -405,7 +405,7 @@ namespace TriangleNet.Meshing.Algorithm
 
         #region Splaytree
 
-        SplayNode Splay(SplayNode splaytree, Point searchpoint, ref Otri searchtri)
+        private SplayNode Splay(SplayNode splaytree, Point searchpoint, ref Otri searchtri)
         {
             SplayNode child, grandchild;
             SplayNode lefttree, righttree;
@@ -549,7 +549,7 @@ namespace TriangleNet.Meshing.Algorithm
             }
         }
 
-        SplayNode SplayInsert(SplayNode splayroot, Otri newkey, Point searchpoint)
+        private SplayNode SplayInsert(SplayNode splayroot, Otri newkey, Point searchpoint)
         {
             SplayNode newsplaynode;
 
@@ -577,7 +577,7 @@ namespace TriangleNet.Meshing.Algorithm
             return newsplaynode;
         }
 
-        SplayNode FrontLocate(SplayNode splayroot, Otri bottommost, Vertex searchvertex,
+        private SplayNode FrontLocate(SplayNode splayroot, Otri bottommost, Vertex searchvertex,
                               ref Otri searchtri, ref bool farright)
         {
             bool farrightflag;
@@ -595,7 +595,7 @@ namespace TriangleNet.Meshing.Algorithm
             return splayroot;
         }
 
-        SplayNode CircleTopInsert(SplayNode splayroot, Otri newkey,
+        private SplayNode CircleTopInsert(SplayNode splayroot, Otri newkey,
                                   Vertex pa, Vertex pb, Vertex pc, double topy)
         {
             double ccwabc;
@@ -618,7 +618,7 @@ namespace TriangleNet.Meshing.Algorithm
 
         #endregion
 
-        bool RightOfHyperbola(ref Otri fronttri, Point newsite)
+        private bool RightOfHyperbola(ref Otri fronttri, Point newsite)
         {
             Vertex leftvertex, rightvertex;
             double dxa, dya, dxb, dyb;
@@ -650,7 +650,7 @@ namespace TriangleNet.Meshing.Algorithm
             return dya * (dxb * dxb + dyb * dyb) > dyb * (dxa * dxa + dya * dya);
         }
 
-        double CircleTop(Vertex pa, Vertex pb, Vertex pc, double ccwabc)
+        private double CircleTop(Vertex pa, Vertex pb, Vertex pc, double ccwabc)
         {
             double xac, yac, xbc, ybc, xab, yab;
             double aclen2, bclen2, ablen2;
@@ -669,7 +669,7 @@ namespace TriangleNet.Meshing.Algorithm
             return pc.y + (xac * bclen2 - xbc * aclen2 + Math.Sqrt(aclen2 * bclen2 * ablen2)) / (2.0 * ccwabc);
         }
 
-        void Check4DeadEvent(ref Otri checktri, SweepEvent[] eventheap, ref int heapsize)
+        private void Check4DeadEvent(ref Otri checktri, SweepEvent[] eventheap, ref int heapsize)
         {
             SweepEvent deadevent;
             SweepEventVertex eventvertex;
@@ -692,7 +692,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// </summary>
         /// <param name="startghost"></param>
         /// <returns>Number of vertices on the hull.</returns>
-        int RemoveGhosts(ref Otri startghost)
+        private int RemoveGhosts(ref Otri startghost)
         {
             Otri searchedge = default(Otri);
             Otri dissolveedge = default(Otri);
@@ -757,7 +757,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// separate array. To distinguish site events from circle events, all circle events are
         /// given an invalid (smaller than 'xmin') x-coordinate 'xkey'.
         /// </remarks>
-        class SweepEvent
+        private class SweepEvent
         {
             public double xkey, ykey;     // Coordinates of the event.
             public Vertex vertexEvent;    // Vertex event.
@@ -770,7 +770,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// to handle the pointer magic of the original code (casting a sweep event 
         /// to vertex etc.).
         /// </summary>
-        class SweepEventVertex : Vertex
+        private class SweepEventVertex : Vertex
         {
             public SweepEvent evt;
 
@@ -796,7 +796,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// been rotated (due to a circle event), it no longer represents a boundary
         /// edge and should be deleted.
         /// </remarks>
-        class SplayNode
+        private class SplayNode
         {
             public Otri keyedge;              // Lprev of an edge on the front.
             public Vertex keydest;            // Used to verify that splay node is still live.

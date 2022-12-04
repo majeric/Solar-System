@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : GravityObject {
 
@@ -30,35 +28,35 @@ public class PlayerController : GravityObject {
 	public Transform feet;
 
 	// Private
-	Rigidbody rb;
-	Ship spaceship;
+	private Rigidbody rb;
+	private Ship spaceship;
 
-	float yaw;
-	float pitch;
-	float smoothYaw;
-	float smoothPitch;
+	private float yaw;
+	private float pitch;
+	private float smoothYaw;
+	private float smoothPitch;
 
-	float yawSmoothV;
-	float pitchSmoothV;
+	private float yawSmoothV;
+	private float pitchSmoothV;
 
-	Vector3 targetVelocity;
-	Vector3 cameraLocalPos;
-	Vector3 smoothVelocity;
-	Vector3 smoothVRef;
+	private Vector3 targetVelocity;
+	private Vector3 cameraLocalPos;
+	private Vector3 smoothVelocity;
+	private Vector3 smoothVRef;
 
 	// Jetpack
-	bool usingJetpack;
-	float jetpackFuelPercent = 1;
-	float lastJetpackUseTime;
+	private bool usingJetpack;
+	private float jetpackFuelPercent = 1;
+	private float lastJetpackUseTime;
 
-	CelestialBody referenceBody;
+	private CelestialBody referenceBody;
 
-	Camera cam;
-	bool readyToFlyShip;
-	bool debug_playerFrozen;
-	Animator animator;
+	private Camera cam;
+	private bool readyToFlyShip;
+	private bool debug_playerFrozen;
+	private Animator animator;
 
-	void Awake () {
+	private void Awake () {
 		cam = GetComponentInChildren<Camera> ();
 		cameraLocalPos = cam.transform.localPosition;
 		spaceship = FindObjectOfType<Ship> ();
@@ -68,7 +66,7 @@ public class PlayerController : GravityObject {
 		inputSettings.Begin ();
 	}
 
-	void InitRigidbody () {
+	private void InitRigidbody () {
 		rb = GetComponent<Rigidbody> ();
 		rb.interpolation = RigidbodyInterpolation.Interpolate;
 		rb.useGravity = false;
@@ -76,11 +74,11 @@ public class PlayerController : GravityObject {
 		rb.mass = mass;
 	}
 
-	void Update () {
+	private void Update () {
 		HandleMovement ();
 	}
 
-	void HandleMovement () {
+	private void HandleMovement () {
 		HandleEditorInput ();
 		if (Time.timeScale == 0) {
 			return;
@@ -141,7 +139,7 @@ public class PlayerController : GravityObject {
 		animator.SetFloat ("Speed", animationSpeedPercent);
 	}
 
-	bool IsGrounded () {
+	private bool IsGrounded () {
 		// Sphere must not overlay terrain at origin otherwise no collision will be detected
 		// so rayRadius should not be larger than controller's capsule collider radius
 		const float rayRadius = .3f;
@@ -164,7 +162,7 @@ public class PlayerController : GravityObject {
 		return grounded;
 	}
 
-	void FixedUpdate () {
+	private void FixedUpdate () {
 		CelestialBody[] bodies = NBodySimulation.Bodies;
 		Vector3 gravityOfNearestBody = Vector3.zero;
 		float nearestSurfaceDst = float.MaxValue;
@@ -194,7 +192,7 @@ public class PlayerController : GravityObject {
 		rb.MovePosition (rb.position + smoothVelocity * Time.fixedDeltaTime);
 	}
 
-	void HandleEditorInput () {
+	private void HandleEditorInput () {
 		if (Application.isEditor) {
 			if (Input.GetKeyDown (KeyCode.O)) {
 				Debug.Log ("Debug mode: Toggle freeze player");
@@ -215,16 +213,7 @@ public class PlayerController : GravityObject {
 		smoothPitch = cam.transform.localEulerAngles.x;
 		pitch = smoothPitch;
 	}
-	public Camera Camera {
-		get {
-			return cam;
-		}
-	}
+	public Camera Camera => cam;
 
-	public Rigidbody Rigidbody {
-		get {
-			return rb;
-		}
-	}
-
+	public Rigidbody Rigidbody => rb;
 }

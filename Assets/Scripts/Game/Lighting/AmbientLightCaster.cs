@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AmbientLightCaster : MonoBehaviour {
     public float maxIntensity = 1;
-    SunShadowCaster sunLight;
-    Transform camT;
-    Light ambientLight;
+    private SunShadowCaster sunLight;
+    private Transform camT;
+    private Light ambientLight;
 
-    void Start () {
+    private void Start () {
         sunLight = FindObjectOfType<SunShadowCaster> ();
         ambientLight = GetComponent<Light> ();
         camT = Camera.main.transform;
         transform.rotation = CalculateAmbientLightRot ();
     }
 
-    void LateUpdate () {
+    private void LateUpdate () {
 
         transform.rotation = Quaternion.Slerp (transform.rotation, CalculateAmbientLightRot (), Time.deltaTime * .2f);
         float sunAlignment = Vector3.Dot (sunLight.transform.forward, transform.forward);
@@ -24,7 +22,7 @@ public class AmbientLightCaster : MonoBehaviour {
         ambientLight.intensity = maxIntensity * intensityMultiplier;
     }
 
-    Quaternion CalculateAmbientLightRot () {
+    private Quaternion CalculateAmbientLightRot () {
         CelestialBody[] bodies = NBodySimulation.Bodies;
         Vector3 nearestPlanetToCam = Vector3.zero;
         float nearestSqrDst = float.PositiveInfinity;
@@ -42,7 +40,7 @@ public class AmbientLightCaster : MonoBehaviour {
         return targetRot;
     }
 
-    void OnValidate () {
+    private void OnValidate () {
         GetComponent<Light> ().intensity = maxIntensity;
     }
 }

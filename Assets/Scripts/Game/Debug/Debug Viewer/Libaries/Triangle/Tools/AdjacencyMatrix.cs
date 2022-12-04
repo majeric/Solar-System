@@ -15,15 +15,15 @@ namespace TriangleNet.Tools
     public class AdjacencyMatrix
     {
         // Number of adjacency entries.
-        int nnz;
+        private int nnz;
 
         // Pointers into the actual adjacency structure adj. Information about row k is
         // stored in entries pcol(k) through pcol(k+1)-1 of adj. Size: N + 1
-        int[] pcol;
+        private int[] pcol;
 
         // The adjacency structure. For each row, it contains the column indices 
         // of the nonzero entries. Size: nnz
-        int[] irow;
+        private int[] irow;
 
         /// <summary>
         /// Gets the number of columns (nodes of the mesh).
@@ -33,18 +33,12 @@ namespace TriangleNet.Tools
         /// <summary>
         /// Gets the column pointers.
         /// </summary>
-        public int[] ColumnPointers
-        {
-            get { return pcol; }
-        }
+        public int[] ColumnPointers => pcol;
 
         /// <summary>
         /// Gets the row indices.
         /// </summary>
-        public int[] RowIndices
-        {
-            get { return irow; }
-        }
+        public int[] RowIndices => irow;
 
         public AdjacencyMatrix(Mesh mesh)
         {
@@ -122,7 +116,7 @@ namespace TriangleNet.Tools
         /// Two nodes are "adjacent" if they are both nodes in some triangle.
         /// Also, a node is considered to be adjacent to itself.
         /// </remarks>
-        int[] AdjacencyCount(Mesh mesh)
+        private int[] AdjacencyCount(Mesh mesh)
         {
             int n = N;
             int n1, n2, n3;
@@ -199,7 +193,7 @@ namespace TriangleNet.Tools
         /// for a linear triangle finite element discretization of Poisson's
         /// equation in two dimensions.
         /// </remarks>
-        int[] AdjacencySet(Mesh mesh, int[] pcol)
+        private int[] AdjacencySet(Mesh mesh, int[] pcol)
         {
             int n = this.N;
 

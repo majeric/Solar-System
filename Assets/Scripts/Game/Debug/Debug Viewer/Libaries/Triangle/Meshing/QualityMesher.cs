@@ -12,28 +12,27 @@ namespace TriangleNet.Meshing
     using TriangleNet.Geometry;
     using TriangleNet.Logging;
     using TriangleNet.Meshing.Data;
-    using TriangleNet.Tools;
     using TriangleNet.Topology;
 
     /// <summary>
     /// Provides methods for mesh quality enforcement and testing.
     /// </summary>
-    class QualityMesher
+    internal class QualityMesher
     {
-        IPredicates predicates;
+        private IPredicates predicates;
 
-        Queue<BadSubseg> badsubsegs;
-        BadTriQueue queue;
-        Mesh mesh;
-        Behavior behavior;
+        private Queue<BadSubseg> badsubsegs;
+        private BadTriQueue queue;
+        private Mesh mesh;
+        private Behavior behavior;
 
-        NewLocation newLocation;
+        private NewLocation newLocation;
 
-        ILog<LogItem> logger;
+        private ILog<LogItem> logger;
 
         // Stores the vertices of the triangle that contains newvertex
         // in SplitTriangle method.
-        Triangle newvertex_tri;
+        private Triangle newvertex_tri;
 
         public QualityMesher(Mesh mesh, Configuration config)
         {

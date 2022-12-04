@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
 public abstract class TextureGenerator : ScriptableObject {
@@ -39,7 +37,7 @@ public abstract class TextureGenerator : ScriptableObject {
 
 	protected abstract void Run ();
 
-	void CreateTexture (ref RenderTexture texture, int resolution, string name) {
+	private void CreateTexture (ref RenderTexture texture, int resolution, string name) {
 		if (texture == null || !texture.IsCreated () || texture.width != resolution || texture.height != resolution || texture.useMipMap != useMips || texture.graphicsFormat != format) {
 			if (texture != null) {
 				texture.Release ();
@@ -57,7 +55,7 @@ public abstract class TextureGenerator : ScriptableObject {
 		texture.name = name;
 	}
 
-	void OnDestroy () {
+	private void OnDestroy () {
 		if (renderTexture != null) {
 			renderTexture.Release ();
 		}

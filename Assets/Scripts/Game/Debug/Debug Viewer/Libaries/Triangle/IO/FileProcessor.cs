@@ -13,7 +13,7 @@ namespace TriangleNet.IO
 
     public static class FileProcessor
     {
-        static List<IFileFormat> formats;
+        private static List<IFileFormat> formats;
 
         static FileProcessor()
         {

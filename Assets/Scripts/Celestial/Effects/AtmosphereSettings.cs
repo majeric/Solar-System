@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using static UnityEngine.Mathf;
 
 [CreateAssetMenu (menuName = "Celestial Body/Atmosphere")]
@@ -32,8 +30,8 @@ public class AtmosphereSettings : ScriptableObject {
 	public float timeOfDay;
 	public float sunDst = 1;
 
-	RenderTexture opticalDepthTexture;
-	bool settingsUpToDate;
+	private RenderTexture opticalDepthTexture;
+	private bool settingsUpToDate;
 
 	public void SetProperties (Material material, float bodyRadius) {
 		/*
@@ -79,7 +77,7 @@ public class AtmosphereSettings : ScriptableObject {
 		}
 	}
 
-	void PrecomputeOutScattering () {
+	private void PrecomputeOutScattering () {
 		if (!settingsUpToDate || opticalDepthTexture == null || !opticalDepthTexture.IsCreated ()) {
 			ComputeHelper.CreateRenderTexture (ref opticalDepthTexture, textureSize, FilterMode.Bilinear);
 			opticalDepthCompute.SetTexture (0, "Result", opticalDepthTexture);
@@ -93,7 +91,7 @@ public class AtmosphereSettings : ScriptableObject {
 
 	}
 
-	void OnValidate () {
+	private void OnValidate () {
 		settingsUpToDate = false;
 	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class CelestialBodyShape : ScriptableObject {
 
@@ -15,7 +13,7 @@ public abstract class CelestialBodyShape : ScriptableObject {
 
 	public event System.Action OnSettingChanged;
 
-	ComputeBuffer heightBuffer;
+	private ComputeBuffer heightBuffer;
 
 	public virtual float[] CalculateHeights (ComputeBuffer vertexBuffer) {
 		//Debug.Log (System.Environment.StackTrace);

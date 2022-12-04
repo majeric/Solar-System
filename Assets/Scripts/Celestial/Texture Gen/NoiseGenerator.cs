@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Experimental.Rendering;
+﻿using UnityEngine;
 
 [CreateAssetMenu (menuName = "Celestial Body/Textures/Noise")]
 public class NoiseGenerator : TextureGenerator {
@@ -11,7 +8,7 @@ public class NoiseGenerator : TextureGenerator {
 	[Range (0, 1)]
 	public float valueFloor;
 	public bool normalize;
-	ComputeBuffer minMaxBuffer;
+	private ComputeBuffer minMaxBuffer;
 
 	protected override void Run () {
 		var prng = new PRNG (seed);

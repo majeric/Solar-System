@@ -19,19 +19,19 @@ namespace TriangleNet.Voronoi.Legacy
     [Obsolete("Use TriangleNet.Voronoi.StandardVoronoi class instead.")]
     public class SimpleVoronoi : IVoronoi
     {
-        IPredicates predicates = RobustPredicates.Default;
+        private IPredicates predicates = RobustPredicates.Default;
 
-        Mesh mesh;
+        private Mesh mesh;
 
-        Point[] points;
-        Dictionary<int, VoronoiRegion> regions;
+        private Point[] points;
+        private Dictionary<int, VoronoiRegion> regions;
 
         // Stores the endpoints of rays of unbounded Voronoi cells
-        Dictionary<int, Point> rayPoints;
-        int rayIndex;
+        private Dictionary<int, Point> rayPoints;
+        private int rayIndex;
 
         // Bounding box of the triangles circumcenters.
-        Rectangle bounds;
+        private Rectangle bounds;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleVoronoi" /> class.
@@ -50,23 +50,14 @@ namespace TriangleNet.Voronoi.Legacy
         /// <summary>
         /// Gets the list of Voronoi vertices.
         /// </summary>
-        public Point[] Points
-        {
-            get { return points; }
-        }
+        public Point[] Points => points;
 
         /// <summary>
         /// Gets the list of Voronoi regions.
         /// </summary>
-        public ICollection<VoronoiRegion> Regions
-        {
-            get { return regions.Values; }
-        }
+        public ICollection<VoronoiRegion> Regions => regions.Values;
 
-        public IEnumerable<IEdge> Edges
-        {
-            get { return EnumerateEdges(); }
-        }
+        public IEnumerable<IEdge> Edges => EnumerateEdges();
 
         /// <summary>
         /// Gets the Voronoi diagram as raw output data.

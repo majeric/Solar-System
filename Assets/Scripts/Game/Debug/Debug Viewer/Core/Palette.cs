@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Visualization {
     public static class Palette {
@@ -8,7 +6,7 @@ namespace Visualization {
         public static readonly Color green = ColorFromHex ("#80fc4e");
         public static readonly Color blue = ColorFromHex ("#4794ff");
 
-        static Color ColorFromHex (string hex) {
+        private static Color ColorFromHex (string hex) {
             Color col;
             ColorUtility.TryParseHtmlString (hex, out col);
             return col;

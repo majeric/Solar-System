@@ -13,30 +13,18 @@ namespace TriangleNet.Logging
     /// </summary>
     public class LogItem : ILogItem
     {
-        DateTime time;
-        LogLevel level;
-        string message;
-        string info;
+        private DateTime time;
+        private LogLevel level;
+        private string message;
+        private string info;
 
-        public DateTime Time
-        {
-            get { return time; }
-        }
+        public DateTime Time => time;
 
-        public LogLevel Level
-        {
-            get { return level; }
-        }
+        public LogLevel Level => level;
 
-        public string Message
-        {
-            get { return message; }
-        }
+        public string Message => message;
 
-        public string Info
-        {
-            get { return info; }
-        }
+        public string Info => info;
 
         public LogItem(LogLevel level, string message)
             : this(level, message, "")

@@ -20,12 +20,12 @@ namespace TriangleNet.Smoothing
     /// </remarks>
     public class SimpleSmoother : ISmoother
     {
-        TrianglePool pool;
-        Configuration config;
+        private TrianglePool pool;
+        private Configuration config;
 
-        IVoronoiFactory factory;
+        private IVoronoiFactory factory;
 
-        ConstraintOptions options;
+        private ConstraintOptions options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleSmoother" /> class.

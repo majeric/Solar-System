@@ -5,15 +5,15 @@ using UnityEngine;
 public class CustomPostProcessing : MonoBehaviour {
 
 	public PostProcessingEffect[] effects;
-	Shader defaultShader;
-	Material defaultMat;
-	List<RenderTexture> temporaryTextures = new List<RenderTexture> ();
+	private Shader defaultShader;
+	private Material defaultMat;
+	private List<RenderTexture> temporaryTextures = new List<RenderTexture> ();
 	public bool debugOceanMask;
 
 	public event System.Action<RenderTexture> onPostProcessingComplete;
 	public event System.Action<RenderTexture> onPostProcessingBegin;
 
-	void Init () {
+	private void Init () {
 		if (defaultShader == null) {
 			defaultShader = Shader.Find ("Unlit/Texture");
 		}
@@ -21,7 +21,7 @@ public class CustomPostProcessing : MonoBehaviour {
 	}
 
 	[ImageEffectOpaque]
-	void OnRenderImage (RenderTexture intialSource, RenderTexture finalDestination) {
+	private void OnRenderImage (RenderTexture intialSource, RenderTexture finalDestination) {
 		if (onPostProcessingBegin != null) {
 			onPostProcessingBegin (finalDestination);
 		}

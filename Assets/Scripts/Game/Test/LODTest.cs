@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LODTest : MonoBehaviour {
     public LODGroup group;
     public float[] vals;
     public bool useVals;
 
-    void Start () {
+    private void Start () {
         // Programmatically create a LOD group and add LOD levels.
         // Create a GUI that allows for forcing a specific LOD level.
         group = gameObject.AddComponent<LODGroup> ();
@@ -38,11 +37,11 @@ public class LODTest : MonoBehaviour {
         group.RecalculateBounds ();
     }
 
-    void Update () {
+    private void Update () {
 
     }
 
-    void OnGUI () {
+    private void OnGUI () {
         if (GUILayout.Button ("Enable / Disable"))
             group.enabled = !group.enabled;
 

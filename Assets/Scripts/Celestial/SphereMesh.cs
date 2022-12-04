@@ -9,17 +9,17 @@ public class SphereMesh {
 	public readonly int Resolution;
 
 	// Internal:
-	FixedSizeList<Vector3> vertices;
-	FixedSizeList<int> triangles;
-	int numDivisions;
-	int numVertsPerFace;
+	private FixedSizeList<Vector3> vertices;
+	private FixedSizeList<int> triangles;
+	private int numDivisions;
+	private int numVertsPerFace;
 
 	// Indices of the vertex pairs that make up each of the initial 12 edges
-	static readonly int[] vertexPairs = { 0, 1, 0, 2, 0, 3, 0, 4, 1, 2, 2, 3, 3, 4, 4, 1, 5, 1, 5, 2, 5, 3, 5, 4 };
+	private static readonly int[] vertexPairs = { 0, 1, 0, 2, 0, 3, 0, 4, 1, 2, 2, 3, 3, 4, 4, 1, 5, 1, 5, 2, 5, 3, 5, 4 };
 	// Indices of the edge triplets that make up the initial 8 faces
-	static readonly int[] edgeTriplets = { 0, 1, 4, 1, 2, 5, 2, 3, 6, 3, 0, 7, 8, 9, 4, 9, 10, 5, 10, 11, 6, 11, 8, 7 };
+	private static readonly int[] edgeTriplets = { 0, 1, 4, 1, 2, 5, 2, 3, 6, 3, 0, 7, 8, 9, 4, 9, 10, 5, 10, 11, 6, 11, 8, 7 };
 	// The six initial vertices
-	static readonly Vector3[] baseVertices = { up, left, back, right, forward, down };
+	private static readonly Vector3[] baseVertices = { up, left, back, right, forward, down };
 
 	public SphereMesh (int resolution) {
 		this.Resolution = resolution;
@@ -64,7 +64,7 @@ public class SphereMesh {
 		Triangles = triangles.items;
 	}
 
-	void CreateFace (Edge sideA, Edge sideB, Edge bottom, bool reverse) {
+	private void CreateFace (Edge sideA, Edge sideB, Edge bottom, bool reverse) {
 		int numPointsInEdge = sideA.vertexIndices.Length;
 		var vertexMap = new FixedSizeList<int> (numVertsPerFace);
 		vertexMap.Add (sideA.vertexIndices[0]); // top of triangle

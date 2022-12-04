@@ -24,10 +24,10 @@ namespace TriangleNet
     /// </remarks>
     public class TriangleLocator
     {
-        TriangleSampler sampler;
-        Mesh mesh;
+        private TriangleSampler sampler;
+        private Mesh mesh;
 
-        IPredicates predicates;
+        private IPredicates predicates;
 
         // Pointer to a recently visited triangle. Improves point location if
         // proximate vertices are inserted sequentially.

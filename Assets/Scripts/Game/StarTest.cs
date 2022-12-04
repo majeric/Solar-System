@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -14,30 +13,30 @@ public class StarTest : MonoBehaviour {
 	public float dst = 10;
 	public float daytimeFade = 4; // higher value means it needs to be darker before stars will appear 
 	public Material mat;
-	Mesh mesh;
-	Camera cam;
+	private Mesh mesh;
+	private Camera cam;
 
 	public Gradient colourSpectrum;
-	Texture2D spectrum;
-	bool settingsUpdated;
-	OceanMaskRenderer oceanMaskRenderer;
+	private Texture2D spectrum;
+	private bool settingsUpdated;
+	private OceanMaskRenderer oceanMaskRenderer;
 
-	void Start () {
+	private void Start () {
 		Init (true);
 	}
 
-	void OnValidate () {
+	private void OnValidate () {
 		settingsUpdated = true;
 	}
 
-	void Update () {
+	private void Update () {
 		if (!Application.isPlaying) {
 			Init (settingsUpdated);
 			settingsUpdated = false;
 		}
 	}
 
-	void Init (bool regenerateMesh) {
+	private void Init (bool regenerateMesh) {
 		if (regenerateMesh) {
 			GenerateMesh ();
 		}
@@ -65,7 +64,7 @@ public class StarTest : MonoBehaviour {
 		}
 	}
 
-	void GenerateMesh () {
+	private void GenerateMesh () {
 		if (mesh) {
 			mesh.Clear ();
 		}
@@ -94,7 +93,7 @@ public class StarTest : MonoBehaviour {
 		meshRenderer.receiveShadows = false;
 	}
 
-	(Vector3[] verts, int[] tris, Vector2[] uvs) GenerateCircle (Vector3 dir, int indexOffset) {
+	private (Vector3[] verts, int[] tris, Vector2[] uvs) GenerateCircle (Vector3 dir, int indexOffset) {
 		float size = Random.Range (sizeMinMax.x, sizeMinMax.y);
 		float brightness = Random.Range (minBrightness, maxBrightness);
 		float spectrumT = Random.value;

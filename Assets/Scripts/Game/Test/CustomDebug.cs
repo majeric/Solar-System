@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class CustomDebug {
 	public static void DrawSphere (Vector3 centre, float radius, Color col) {

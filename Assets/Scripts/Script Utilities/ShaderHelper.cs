@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class ShaderHelper {
     // Set all values from settings object on the shader. Note, variable names must be an exact match in the shader.

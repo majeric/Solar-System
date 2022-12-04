@@ -12,20 +12,20 @@ public class OrbitDebugDisplay : MonoBehaviour {
     public float width = 100;
     public bool useThickLines;
 
-    void Start () {
+    private void Start () {
         if (Application.isPlaying) {
             HideOrbits ();
         }
     }
 
-    void Update () {
+    private void Update () {
 
         if (!Application.isPlaying) {
             DrawOrbits ();
         }
     }
 
-    void DrawOrbits () {
+    private void DrawOrbits () {
         CelestialBody[] bodies = FindObjectsOfType<CelestialBody> ();
         var virtualBodies = new VirtualBody[bodies.Length];
         var drawPoints = new Vector3[bodies.Length][];
@@ -93,7 +93,7 @@ public class OrbitDebugDisplay : MonoBehaviour {
         }
     }
 
-    Vector3 CalculateAcceleration (int i, VirtualBody[] virtualBodies) {
+    private Vector3 CalculateAcceleration (int i, VirtualBody[] virtualBodies) {
         Vector3 acceleration = Vector3.zero;
         for (int j = 0; j < virtualBodies.Length; j++) {
             if (i == j) {
@@ -106,7 +106,7 @@ public class OrbitDebugDisplay : MonoBehaviour {
         return acceleration;
     }
 
-    void HideOrbits () {
+    private void HideOrbits () {
         CelestialBody[] bodies = FindObjectsOfType<CelestialBody> ();
 
         // Draw paths
@@ -116,13 +116,13 @@ public class OrbitDebugDisplay : MonoBehaviour {
         }
     }
 
-    void OnValidate () {
+    private void OnValidate () {
         if (usePhysicsTimeStep) {
             timeStep = Universe.physicsTimeStep;
         }
     }
 
-    class VirtualBody {
+    private class VirtualBody {
         public Vector3 position;
         public Vector3 velocity;
         public float mass;

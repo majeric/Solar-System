@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RaySphereTest : MonoBehaviour {
 
     public Transform sphere;
 
     // Returns dstToSphere, dstThroughSphere
-    Vector2 raySphere (Vector3 sphereCentre, float sphereRadius, Vector3 rayOrigin, Vector3 rayDir) {
+    private Vector2 raySphere (Vector3 sphereCentre, float sphereRadius, Vector3 rayOrigin, Vector3 rayDir) {
         Vector3 offset = rayOrigin - sphereCentre;
         const float a = 1; // set to dot(rayDir, rayDir) if rayDir might be unnormalized
         float b = 2 * Vector3.Dot (offset, rayDir);
@@ -30,7 +28,7 @@ public class RaySphereTest : MonoBehaviour {
         return Vector2.zero;
     }
 
-    void OnDrawGizmos () {
+    private void OnDrawGizmos () {
         var r = raySphere (sphere.position, sphere.localScale.x/2, transform.position, transform.forward);
         Gizmos.color = Color.green;
         Gizmos.DrawRay (transform.position, transform.forward * r.x);

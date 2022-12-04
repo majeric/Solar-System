@@ -11,9 +11,9 @@ namespace TriangleNet.Geometry
 
     public class Contour
     {
-        int marker;
+        private int marker;
 
-        bool convex;
+        private bool convex;
 
         /// <summary>
         /// Gets or sets the list of points making up the contour.

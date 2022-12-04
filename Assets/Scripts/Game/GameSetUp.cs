@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameSetUp : MonoBehaviour {
 	public enum StartCondition { InShip, OnBody }
@@ -8,7 +6,7 @@ public class GameSetUp : MonoBehaviour {
 	public StartCondition startCondition;
 	public CelestialBody startBody;
 
-	void Start () {
+	private void Start () {
 		Ship ship = FindObjectOfType<Ship> ();
 		PlayerController player = FindObjectOfType<PlayerController> ();
 

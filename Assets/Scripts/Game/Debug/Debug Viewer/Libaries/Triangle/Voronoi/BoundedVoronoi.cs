@@ -6,7 +6,6 @@
 
 namespace TriangleNet.Voronoi
 {
-    using System.Collections.Generic;
     using TriangleNet.Geometry;
     using TriangleNet.Tools;
     using TriangleNet.Topology.DCEL;
@@ -16,7 +15,7 @@ namespace TriangleNet.Voronoi
 
     public class BoundedVoronoi : VoronoiBase
     {
-        int offset;
+        private int offset;
 
         public BoundedVoronoi(Mesh mesh)
             : this(mesh, new DefaultVoronoiFactory(), RobustPredicates.Default)

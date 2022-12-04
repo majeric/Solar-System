@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
@@ -15,19 +13,19 @@ public class CameraController : MonoBehaviour {
 	public float zoomSmoothing = 10;
 
 	// Rotation state
-	Vector2 rotInput;
+	private Vector2 rotInput;
 
 	// Zoom state
-	float targetZoomDst;
-	float currentZoomDst;
+	private float targetZoomDst;
+	private float currentZoomDst;
 
-	void Start () {
+	private void Start () {
 		rotInput = (Vector2) transform.eulerAngles;
 		targetZoomDst = (transform.position - pivot.position).magnitude;
 		currentZoomDst = targetZoomDst;
 	}
 
-	void LateUpdate () {
+	private void LateUpdate () {
 		if (Input.GetKey (KeyCode.LeftAlt) && Input.GetMouseButton (0)) {
 			Vector2 mouseInput = new Vector2 (Input.GetAxisRaw ("Mouse X"), Input.GetAxisRaw ("Mouse Y"));
 
@@ -42,12 +40,12 @@ public class CameraController : MonoBehaviour {
 		UpdateZoom ();
 	}
 
-	void HandleRotationInput (Vector2 mouseInput) {
+	private void HandleRotationInput (Vector2 mouseInput) {
 		rotInput += new Vector2 (-mouseInput.y, mouseInput.x) * rotSpeed;
 
 	}
 
-	void UpdateRotation () {
+	private void UpdateRotation () {
 		Quaternion targetRot = Quaternion.Euler (rotInput.x, rotInput.y, 0);
 		Quaternion rotation = Quaternion.Slerp (transform.rotation, targetRot, Time.deltaTime * rotSmoothing);
 		Vector3 position = rotation * Vector3.forward * -(pivot.position - transform.position).magnitude + pivot.position;
@@ -56,12 +54,12 @@ public class CameraController : MonoBehaviour {
 		transform.position = position;
 	}
 
-	void HandleZoomInput (Vector2 mouseInput) {
+	private void HandleZoomInput (Vector2 mouseInput) {
 		float zoomDir = -Mathf.Sign (mouseInput.x);
 		targetZoomDst += mouseInput.magnitude * zoomSpeed * zoomDir;
 	}
 
-	void UpdateZoom () {
+	private void UpdateZoom () {
 		currentZoomDst = Mathf.Lerp (currentZoomDst, targetZoomDst, Time.deltaTime * zoomSmoothing);
 		Vector3 dirToPivot = (pivot.transform.position - transform.position).normalized;
 		transform.position = pivot.transform.position - dirToPivot * currentZoomDst;

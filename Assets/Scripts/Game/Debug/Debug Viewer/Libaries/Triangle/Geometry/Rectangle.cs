@@ -14,7 +14,7 @@ namespace TriangleNet.Geometry
     /// </summary>
     public class Rectangle
     {
-        double xmin, ymin, xmax, ymax;
+        private double xmin, ymin, xmax, ymax;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle" /> class.
@@ -49,50 +49,32 @@ namespace TriangleNet.Geometry
         /// <summary>
         /// Gets the minimum x value (left boundary).
         /// </summary>
-        public double Left
-        {
-            get { return xmin; }
-        }
+        public double Left => xmin;
 
         /// <summary>
         /// Gets the maximum x value (right boundary).
         /// </summary>
-        public double Right
-        {
-            get { return xmax; }
-        }
+        public double Right => xmax;
 
         /// <summary>
         /// Gets the minimum y value (bottom boundary).
         /// </summary>
-        public double Bottom
-        {
-            get { return ymin; }
-        }
+        public double Bottom => ymin;
 
         /// <summary>
         /// Gets the maximum y value (top boundary).
         /// </summary>
-        public double Top
-        {
-            get { return ymax; }
-        }
+        public double Top => ymax;
 
         /// <summary>
         /// Gets the width of the rectangle.
         /// </summary>
-        public double Width
-        {
-            get { return xmax - xmin; }
-        }
+        public double Width => xmax - xmin;
 
         /// <summary>
         /// Gets the height of the rectangle.
         /// </summary>
-        public double Height
-        {
-            get { return ymax - ymin; }
-        }
+        public double Height => ymax - ymin;
 
         /// <summary>
         /// Update bounds.

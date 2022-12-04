@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode, ImageEffectAllowedInSceneView]
@@ -8,12 +7,11 @@ public class DebugLineDrawer : MonoBehaviour {
     public Shader shader;
     public float thickness = 1;
     public Vector3 testParams;
-    Material material;
-    Material defaultMat;
-    int lastFrame;
+    private Material material;
+    private Material defaultMat;
+    private int lastFrame;
 
-    [SerializeField, HideInInspector]
-    List<Path> paths;
+    [SerializeField, HideInInspector] private List<Path> paths;
 
     [System.Serializable]
     public class Path {
@@ -21,7 +19,7 @@ public class DebugLineDrawer : MonoBehaviour {
         public Color colour;
     }
 
-    void Init () {
+    private void Init () {
         if (paths == null || Time.frameCount != lastFrame) {
             lastFrame = Time.frameCount;
             paths = new List<Path> ();
@@ -34,7 +32,7 @@ public class DebugLineDrawer : MonoBehaviour {
         paths.Add (polyLine);
     }
 
-    void DrawDefault (RenderTexture src, RenderTexture dest) {
+    private void DrawDefault (RenderTexture src, RenderTexture dest) {
         if (defaultMat == null) {
             defaultMat = new Material (Shader.Find ("Unlit/Texture"));
         }

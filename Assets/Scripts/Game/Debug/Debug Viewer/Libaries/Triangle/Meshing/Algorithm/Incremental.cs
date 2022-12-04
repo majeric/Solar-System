@@ -16,7 +16,7 @@ namespace TriangleNet.Meshing.Algorithm
     /// </summary>
     public class Incremental : ITriangulator
     {
-        Mesh mesh;
+        private Mesh mesh;
 
         /// <summary>
         /// Form a Delaunay triangulation by incrementally inserting vertices.
@@ -63,7 +63,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// used by the point location routines, but (mostly) ignored by the
         /// Delaunay edge flip routines.
         /// </remarks>
-        void GetBoundingBox()
+        private void GetBoundingBox()
         {
             Otri inftri = default(Otri); // Handle for the triangular bounding box.
             Rectangle box = mesh.bounds;
@@ -105,7 +105,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// the three bounding box vertices (one triangle for each edge of the
         /// convex hull of the inner mesh).  This routine removes these triangles.
         /// </remarks>
-        int RemoveBox()
+        private int RemoveBox()
         {
             Otri deadtriangle = default(Otri);
             Otri searchedge = default(Otri);

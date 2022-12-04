@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class MathUtility {
     public static bool RaySphere (Vector3 centre, float radius, Vector3 rayOrigin, Vector3 rayDir, out Vector3 intersectionPoint) {

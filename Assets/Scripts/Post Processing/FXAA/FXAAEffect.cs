@@ -8,9 +8,8 @@ using UnityEngine;
 [ExecuteInEditMode, ImageEffectAllowedInSceneView]
 [CreateAssetMenu (menuName = "PostProcessing/FXAA")]
 public class FXAAEffect : PostProcessingEffect {
-
-	const int luminancePass = 0;
-	const int fxaaPass = 1;
+	private const int luminancePass = 0;
+	private const int fxaaPass = 1;
 
 	public enum LuminanceMode { Alpha, Green, Calculate }
 
@@ -32,8 +31,7 @@ public class FXAAEffect : PostProcessingEffect {
 
 	public bool gammaBlending;
 
-	[NonSerialized]
-	Material fxaaMaterial;
+	[NonSerialized] private Material fxaaMaterial;
 
 	public override void Render (RenderTexture source, RenderTexture destination) {
 		if (fxaaMaterial == null) {

@@ -25,8 +25,8 @@ namespace TriangleNet.Topology
 
         public Triangle Triangle
         {
-            get { return tri; }
-            set { tri = value; }
+            get => tri;
+            set => tri = value;
         }
 
         public override string ToString()
@@ -41,8 +41,8 @@ namespace TriangleNet.Topology
         #region Otri primitives (public)
 
         // For fast access
-        static readonly int[] plus1Mod3 = { 1, 2, 0 };
-        static readonly int[] minus1Mod3 = { 2, 0, 1 };
+        private static readonly int[] plus1Mod3 = { 1, 2, 0 };
+        private static readonly int[] minus1Mod3 = { 2, 0, 1 };
 
         // The following primitives are all described by Guibas and Stolfi.
         // However, Guibas and Stolfi use an edge-based data structure,

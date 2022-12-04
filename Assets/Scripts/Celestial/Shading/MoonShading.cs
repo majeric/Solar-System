@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu (menuName = "Celestial Body/Moon/Moon Shading")]
@@ -30,9 +29,9 @@ public class MoonShading : CelestialBodyShading {
 	public Texture2D[] normalMapsFlat;
 	public Texture2D[] normalMapsSteep;
 
-	ComputeBuffer craterBuffer;
-	ComputeBuffer pointBuffer;
-	MoonShape moonShape;
+	private ComputeBuffer craterBuffer;
+	private ComputeBuffer pointBuffer;
+	private MoonShape moonShape;
 
 	public override void Initialize (CelestialBodyShape shape) {
 		base.Initialize (shape);
@@ -87,7 +86,7 @@ public class MoonShading : CelestialBodyShading {
 
 	}
 
-	void SetBiomeSettings (PRNG prng, Material material) {
+	private void SetBiomeSettings (PRNG prng, Material material) {
 		var biomeValues = new Vector4 (
 			prng.SignedValueBiasExtremes (0.3f),
 			prng.SignedValueBiasExtremes (0.3f) * 0.4f,
@@ -100,7 +99,7 @@ public class MoonShading : CelestialBodyShading {
 		material.SetFloat ("_BiomeWarpStrength", warpStrength);
 	}
 
-	void SetColours (PRNG rand, Material material) {
+	private void SetColours (PRNG rand, Material material) {
 
 		var colChance = new Chance (rand);
 		var primaryA_HSV = Vector3.zero;
@@ -150,11 +149,11 @@ public class MoonShading : CelestialBodyShading {
 		material.SetColor ("_SecondaryColB", HSVToRGB (secondaryB_HSV));
 	}
 
-	Color GreyscaleColor (float value) {
+	private Color GreyscaleColor (float value) {
 		return new Color (value, value, value, 1);
 	}
 
-	Color HSVToRGB (Vector3 col) {
+	private Color HSVToRGB (Vector3 col) {
 		return Color.HSVToRGB (Mathf.Clamp01 (col.x), Mathf.Clamp01 (col.y), Mathf.Clamp01 (col.z));
 	}
 
@@ -164,7 +163,7 @@ public class MoonShading : CelestialBodyShading {
 		SetShadingNoise ();
 	}
 
-	void SetShadingNoise () {
+	private void SetShadingNoise () {
 		const string biomeWarpNoiseSuffix = "_biomeWarp";
 		const string detailWarpNoiseSuffix = "_detailWarp";
 		const string detailNoiseSuffix = "_detail";
@@ -194,7 +193,7 @@ public class MoonShading : CelestialBodyShading {
 
 	}
 
-	void SetRandomPoints () {
+	private void SetRandomPoints () {
 		Random.InitState (seed);
 
 		int randomizedNumPoints = numBiomePoints;
@@ -209,12 +208,12 @@ public class MoonShading : CelestialBodyShading {
 			randomPoints[i] = new Vector4 (point.x, point.y, point.z, radius);
 		}
 
-		ComputeHelper.CreateAndSetBuffer<Vector4> (ref pointBuffer, randomPoints, shadingDataCompute, "points");
+		ComputeHelper.CreateAndSetBuffer (ref pointBuffer, randomPoints, shadingDataCompute, "points");
 		shadingDataCompute.SetInt ("numRandomPoints", randomPoints.Length);
 	}
 
 	// Pick craters to be shaded with radial streaks emanating from them 
-	void SetCraters (MoonShape moonShape) {
+	private void SetCraters (MoonShape moonShape) {
 		PRNG random = new PRNG (ejectaRaySeed);
 		//int desiredNumCraterRays = random.Range (5, 15);
 		//desiredNumCraterRays = 2;
@@ -262,7 +261,7 @@ public class MoonShading : CelestialBodyShading {
 			//CustomDebug.DrawSphere (crater.centre, crater.size * ejectaRaysScale / 2, Color.yellow);
 		}
 
-		ComputeHelper.CreateAndSetBuffer<Vector4> (ref craterBuffer, ejectaCraters, shadingDataCompute, "ejectaCraters");
+		ComputeHelper.CreateAndSetBuffer (ref craterBuffer, ejectaCraters, shadingDataCompute, "ejectaCraters");
 		shadingDataCompute.SetInt ("numEjectaCraters", chosenCraters.Count);
 	}
 

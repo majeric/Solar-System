@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Visualization.MeshGeneration {
     public static class ArrowMesh3D {
-
-        const int resolution = 30;
+        private const int resolution = 30;
 
         public static void GenerateMesh (Mesh mesh, float length, float lineRadius, float headRadius) {
 

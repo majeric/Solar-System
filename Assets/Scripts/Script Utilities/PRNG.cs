@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PRNG {
 
 	public enum Weight { None, Lower, Upper, Centre, Ends }
-	System.Random prng;
-	int seed;
 
-	public int Seed {
-		get {
-			return seed;
-		}
-	}
+	private System.Random prng;
+	private int seed;
+
+	public int Seed => seed;
 
 	public PRNG (int seed) {
 		this.seed = seed;

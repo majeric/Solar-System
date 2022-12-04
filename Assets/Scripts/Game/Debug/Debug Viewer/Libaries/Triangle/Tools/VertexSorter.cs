@@ -17,11 +17,11 @@ namespace TriangleNet.Tools
     {
         private const int RANDOM_SEED = 57113;
 
-        Random rand;
+        private Random rand;
 
-        Vertex[] points;
+        private Vertex[] points;
 
-        VertexSorter(Vertex[] points, int seed)
+        private VertexSorter(Vertex[] points, int seed)
         {
             this.points = points;
             this.rand = new Random(seed);

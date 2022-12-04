@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu (menuName = "Celestial Body/Shapes/Alien")]
 public class AlienShape : CelestialBodyShape {

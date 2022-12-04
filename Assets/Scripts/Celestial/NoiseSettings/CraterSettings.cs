@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class CraterSettings {
@@ -20,7 +18,7 @@ public class CraterSettings {
 	public Crater[] cachedCraters;
 
 	// Private
-	ComputeBuffer craterBuffer;
+	private ComputeBuffer craterBuffer;
 
 	// Set values using exposed settings
 	public void SetComputeValues (ComputeShader computeShader, int masterSeed) {
@@ -55,7 +53,7 @@ public class CraterSettings {
 		cachedCraters = craters;
 
 		// Set shape data
-		ComputeHelper.CreateAndSetBuffer<Crater> (ref craterBuffer, craters, computeShader, "craters");
+		ComputeHelper.CreateAndSetBuffer (ref craterBuffer, craters, computeShader, "craters");
 		computeShader.SetInt ("numCraters", numCraters);
 
 		computeShader.SetFloat (nameof (rimSteepness), rimSteepness);

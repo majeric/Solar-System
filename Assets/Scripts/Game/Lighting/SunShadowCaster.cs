@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SunShadowCaster : MonoBehaviour {
-	Transform track;
+	private Transform track;
 
-	void Start () {
+	private void Start () {
 		track = Camera.main?.transform;
 	}
 
-	void LateUpdate () {
+	private void LateUpdate () {
 		if (track) {
 			transform.LookAt (track.position);
 		}

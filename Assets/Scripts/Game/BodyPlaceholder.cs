@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class BodyPlaceholder : MonoBehaviour {
@@ -10,11 +8,11 @@ public class BodyPlaceholder : MonoBehaviour {
 	public bool useBodySettings;
 	public CelestialBodySettings bodySettings;
 	public bool generateCollider;
-	Mesh mesh;
+	private Mesh mesh;
 
-	bool settingsChanged;
+	private bool settingsChanged;
 
-	void Update () {
+	private void Update () {
 		if (settingsChanged) {
 			settingsChanged = false;
 			if (mesh == null) {
@@ -39,7 +37,7 @@ public class BodyPlaceholder : MonoBehaviour {
 		}
 	}
 
-	GameObject GetOrCreateMeshObject (string name, Mesh mesh, Material material) {
+	private GameObject GetOrCreateMeshObject (string name, Mesh mesh, Material material) {
 		// Find/create object
 		var child = transform.Find (name);
 		if (!child) {
@@ -53,13 +51,13 @@ public class BodyPlaceholder : MonoBehaviour {
 
 		// Add mesh components
 		MeshFilter filter;
-		if (!child.TryGetComponent<MeshFilter> (out filter)) {
+		if (!child.TryGetComponent (out filter)) {
 			filter = child.gameObject.AddComponent<MeshFilter> ();
 		}
 		filter.sharedMesh = mesh;
 
 		MeshRenderer renderer;
-		if (!child.TryGetComponent<MeshRenderer> (out renderer)) {
+		if (!child.TryGetComponent (out renderer)) {
 			renderer = child.gameObject.AddComponent<MeshRenderer> ();
 		}
 		renderer.sharedMaterial = material;
@@ -67,7 +65,7 @@ public class BodyPlaceholder : MonoBehaviour {
 		return child.gameObject;
 	}
 
-	void OnValidate () {
+	private void OnValidate () {
 		settingsChanged = true;
 	}
 }

@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class NormalRotTest : MonoBehaviour {
-
-	void Update () {
+	private void Update () {
 		Vector3 sphereNormal = transform.up;
 		Vector3 normal = transform.GetChild (0).up;
 		Vector3 flattenedNormal = (normal - sphereNormal * Vector3.Dot (sphereNormal, normal)).normalized;

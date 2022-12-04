@@ -6,7 +6,6 @@
 
 namespace TriangleNet.IO
 {
-    using TriangleNet.Topology;
     using TriangleNet.Geometry;
 
     /// <summary>
@@ -30,7 +29,7 @@ namespace TriangleNet.IO
         /// </summary>
         public int ID
         {
-            get { return 0; }
+            get => 0;
             set { }
         }
 
@@ -39,8 +38,8 @@ namespace TriangleNet.IO
         /// </summary>
         public int Label
         {
-            get { return label; }
-            set { label = value; }
+            get => label;
+            set => label = value;
         }
 
         /// <summary>
@@ -48,8 +47,8 @@ namespace TriangleNet.IO
         /// </summary>
         public double Area
         {
-            get { return area; }
-            set { area = value; }
+            get => area;
+            set => area = value;
         }
 
         /// <summary>

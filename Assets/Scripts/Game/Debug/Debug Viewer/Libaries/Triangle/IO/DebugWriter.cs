@@ -35,16 +35,16 @@ namespace TriangleNet.IO
     /// ...
     /// id_n p1 p2 p3 n1 n2 n3
     /// </remarks>
-    class DebugWriter
+    internal class DebugWriter
     {
-        static NumberFormatInfo nfi = CultureInfo.InvariantCulture.NumberFormat;
+        private static NumberFormatInfo nfi = CultureInfo.InvariantCulture.NumberFormat;
 
-        int iteration;
-        string session;
-        StreamWriter stream;
-        string tmpFile;
-        int[] vertices;
-        int triangles;
+        private int iteration;
+        private string session;
+        private StreamWriter stream;
+        private string tmpFile;
+        private int[] vertices;
+        private int triangles;
 
         #region Singleton pattern
 
@@ -56,13 +56,7 @@ namespace TriangleNet.IO
 
         private DebugWriter() { }
 
-        public static DebugWriter Session
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static DebugWriter Session => instance;
 
         #endregion
 

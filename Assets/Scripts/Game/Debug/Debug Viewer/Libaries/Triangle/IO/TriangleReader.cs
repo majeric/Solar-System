@@ -18,9 +18,9 @@ namespace TriangleNet.IO
     /// </summary>
     public class TriangleReader
     {
-        static NumberFormatInfo nfi = NumberFormatInfo.InvariantInfo;
+        private static NumberFormatInfo nfi = NumberFormatInfo.InvariantInfo;
 
-        int startIndex = 0;
+        private int startIndex = 0;
 
         #region Helper methods
 

@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Visualization.MeshGeneration {
 
     public static class ArcMesh {
-
-        const int resolution = 50;
+        private const int resolution = 50;
 
         public static void GenerateMesh (Mesh mesh, float angle) {
 

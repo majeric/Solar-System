@@ -47,14 +47,14 @@ namespace TriangleNet.Meshing.Algorithm
     public class Dwyer : ITriangulator
     {
         // Random is not threadsafe, so don't make this static.
-        Random rand = new Random(DateTime.Now.Millisecond);
+        private Random rand = new Random(DateTime.Now.Millisecond);
 
-        IPredicates predicates;
+        private IPredicates predicates;
 
         public bool UseDwyer = true;
 
-        Vertex[] sortarray;
-        Mesh mesh;
+        private Vertex[] sortarray;
+        private Mesh mesh;
 
         /// <summary>
         /// Form a Delaunay triangulation by the divide-and-conquer method.
@@ -158,7 +158,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// merged triangulation, and the destination of 'farright' is the rightmost
         /// vertex.
         /// </remarks>
-        void MergeHulls(ref Otri farleft, ref Otri innerleft, ref Otri innerright,
+        private void MergeHulls(ref Otri farleft, ref Otri innerleft, ref Otri innerright,
                         ref Otri farright, int axis)
         {
             Otri leftcand = default(Otri), rightcand = default(Otri);
@@ -485,7 +485,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// 'farright' is the rightmost vertex (breaking ties by choosing the
         /// lowest rightmost vertex).
         /// </remarks>
-        void DivconqRecurse(int left, int right, int axis,
+        private void DivconqRecurse(int left, int right, int axis,
                             ref Otri farleft, ref Otri farright)
         {
             Otri midtri = default(Otri);
@@ -639,7 +639,7 @@ namespace TriangleNet.Meshing.Algorithm
         /// </summary>
         /// <param name="startghost"></param>
         /// <returns>Number of vertices on the hull.</returns>
-        int RemoveGhosts(ref Otri startghost)
+        private int RemoveGhosts(ref Otri startghost)
         {
             Otri searchedge = default(Otri);
             Otri dissolveedge = default(Otri);

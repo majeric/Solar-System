@@ -14,35 +14,23 @@ namespace TriangleNet.Geometry
     /// </summary>
     public class Polygon : IPolygon
     {
-        List<Vertex> points;
-        List<Point> holes;
-        List<RegionPointer> regions;
+        private List<Vertex> points;
+        private List<Point> holes;
+        private List<RegionPointer> regions;
 
-        List<ISegment> segments;
-
-        /// <inheritdoc />
-        public List<Vertex> Points
-        {
-            get { return points; }
-        }
+        private List<ISegment> segments;
 
         /// <inheritdoc />
-        public List<Point> Holes
-        {
-            get { return holes; }
-        }
+        public List<Vertex> Points => points;
 
         /// <inheritdoc />
-        public List<RegionPointer> Regions
-        {
-            get { return regions; }
-        }
+        public List<Point> Holes => holes;
 
         /// <inheritdoc />
-        public List<ISegment> Segments
-        {
-            get { return segments; }
-        }
+        public List<RegionPointer> Regions => regions;
+
+        /// <inheritdoc />
+        public List<ISegment> Segments => segments;
 
         /// <inheritdoc />
         public bool HasPointMarkers { get; set; }
@@ -51,10 +39,7 @@ namespace TriangleNet.Geometry
         public bool HasSegmentMarkers { get; set; }
 
         /// <inheritdoc />
-        public int Count
-        {
-            get { return points.Count; }
-        }
+        public int Count => points.Count;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon" /> class.

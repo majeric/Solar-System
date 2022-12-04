@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Visualization.MeshGeneration {
     public static class SphereMesh {
-
-        const int resolution = 20;
-        static Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
+        private const int resolution = 20;
+        private static Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 
         public static void GenerateMesh (Mesh mesh) {
             List<Vector3> vertices = new List<Vector3> ();
@@ -31,7 +29,7 @@ namespace Visualization.MeshGeneration {
             mesh.SetTriangles (triangles, 0);
         }
 
-        static FaceData ConstructFace (Vector3 localUp, int resolution) {
+        private static FaceData ConstructFace (Vector3 localUp, int resolution) {
             Vector3 axisA = new Vector3 (localUp.y, localUp.z, localUp.x);
             Vector3 axisB = Vector3.Cross (localUp, axisA);
 

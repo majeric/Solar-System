@@ -20,7 +20,7 @@ namespace TriangleNet.Meshing.Iterators
     /// </remarks>
     public class RegionIterator
     {
-        List<Triangle> region;
+        private List<Triangle> region;
 
         public RegionIterator(Mesh mesh)
         {
@@ -84,7 +84,7 @@ namespace TriangleNet.Meshing.Iterators
         /// </summary>
         /// <param name="action"></param>
         /// <param name="protector"></param>
-        void ProcessRegion(Action<Triangle> action, Func<SubSegment, bool> protector)
+        private void ProcessRegion(Action<Triangle> action, Func<SubSegment, bool> protector)
         {
             Otri testtri = default(Otri);
             Otri neighbor = default(Otri);

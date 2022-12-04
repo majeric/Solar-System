@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu (menuName = "Celestial Body/Textures/Spots")]
@@ -68,7 +67,7 @@ public class SpotsTexture : TextureGenerator {
 		}
 
 		if (spots.Count > 0) {
-			var spotBuffer = ComputeHelper.CreateAndSetBuffer<Vector4> (spots.ToArray (), compute, "spots");
+			var spotBuffer = ComputeHelper.CreateAndSetBuffer (spots.ToArray (), compute, "spots");
 
 			compute.SetTexture (0, "Result", renderTexture);
 			compute.SetInt ("numSpots", spots.Count);

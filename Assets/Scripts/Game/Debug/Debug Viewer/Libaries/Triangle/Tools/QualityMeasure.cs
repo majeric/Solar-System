@@ -53,11 +53,11 @@ namespace TriangleNet.Tools
     /// </remarks>
     public class QualityMeasure
     {
-        AreaMeasure areaMeasure;
-        AlphaMeasure alphaMeasure;
-        Q_Measure qMeasure;
+        private AreaMeasure areaMeasure;
+        private AlphaMeasure alphaMeasure;
+        private Q_Measure qMeasure;
 
-        Mesh mesh;
+        private Mesh mesh;
 
         public QualityMeasure()
         {
@@ -71,90 +71,57 @@ namespace TriangleNet.Tools
         /// <summary>
         /// Minimum triangle area.
         /// </summary>
-        public double AreaMinimum
-        {
-            get { return areaMeasure.area_min; }
-        }
+        public double AreaMinimum => areaMeasure.area_min;
 
         /// <summary>
         /// Maximum triangle area.
         /// </summary>
-        public double AreaMaximum
-        {
-            get { return areaMeasure.area_max; }
-        }
+        public double AreaMaximum => areaMeasure.area_max;
 
         /// <summary>
         /// Ratio of maximum and minimum triangle area.
         /// </summary>
-        public double AreaRatio
-        {
-            get { return areaMeasure.area_max / areaMeasure.area_min; }
-        }
+        public double AreaRatio => areaMeasure.area_max / areaMeasure.area_min;
 
         /// <summary>
         /// Smallest angle.
         /// </summary>
-        public double AlphaMinimum
-        {
-            get { return alphaMeasure.alpha_min; }
-        }
+        public double AlphaMinimum => alphaMeasure.alpha_min;
 
         /// <summary>
         /// Maximum smallest angle.
         /// </summary>
-        public double AlphaMaximum
-        {
-            get { return alphaMeasure.alpha_max; }
-        }
+        public double AlphaMaximum => alphaMeasure.alpha_max;
 
         /// <summary>
         /// Average angle.
         /// </summary>
-        public double AlphaAverage
-        {
-            get { return alphaMeasure.alpha_ave; }
-        }
+        public double AlphaAverage => alphaMeasure.alpha_ave;
 
         /// <summary>
         /// Average angle weighted by area.
         /// </summary>
-        public double AlphaArea
-        {
-            get { return alphaMeasure.alpha_area; }
-        }
+        public double AlphaArea => alphaMeasure.alpha_area;
 
         /// <summary>
         /// Smallest aspect ratio.
         /// </summary>
-        public double Q_Minimum
-        {
-            get { return qMeasure.q_min; }
-        }
+        public double Q_Minimum => qMeasure.q_min;
 
         /// <summary>
         /// Largest aspect ratio.
         /// </summary>
-        public double Q_Maximum
-        {
-            get { return qMeasure.q_max; }
-        }
+        public double Q_Maximum => qMeasure.q_max;
 
         /// <summary>
         /// Average aspect ratio.
         /// </summary>
-        public double Q_Average
-        {
-            get { return qMeasure.q_ave; }
-        }
+        public double Q_Average => qMeasure.q_ave;
 
         /// <summary>
         /// Average aspect ratio weighted by area.
         /// </summary>
-        public double Q_Area
-        {
-            get { return qMeasure.q_area; }
-        }
+        public double Q_Area => qMeasure.q_area;
 
         #endregion
 
@@ -263,7 +230,7 @@ namespace TriangleNet.Tools
             return ml + 1 + mu;
         }
 
-        class AreaMeasure
+        private class AreaMeasure
         {
             // Minimum area
             public double area_min = double.MaxValue;
@@ -321,7 +288,7 @@ namespace TriangleNet.Tools
         /// is 60). The best possible value is 1, and the worst 0. A good
         /// triangulation should have an alpha score close to 1.
         /// </remarks>
-        class AlphaMeasure
+        private class AlphaMeasure
         {
             // Minimum value over all triangles
             public double alpha_min;
@@ -343,7 +310,7 @@ namespace TriangleNet.Tools
                 alpha_area = 0;
             }
 
-            double acos(double c)
+            private double acos(double c)
             {
                 if (c <= -1.0)
                 {
@@ -470,7 +437,7 @@ namespace TriangleNet.Tools
         /// equilateral shape, for which Q = 1. A good mesh would have
         /// 0.5 &lt; Q.
         /// </remarks>
-        class Q_Measure
+        private class Q_Measure
         {
             // Minimum value over all triangles
             public double q_min;

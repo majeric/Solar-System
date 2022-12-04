@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class PlanetTest : MonoBehaviour {
@@ -19,10 +17,10 @@ public class PlanetTest : MonoBehaviour {
 	public GameObject sun;
 	public GameObject skySphere;
 	public Light testLight;
-	CelestialBodyGenerator[] bodies;
+	private CelestialBodyGenerator[] bodies;
 	public float timeOfDay;
 
-	void Awake () {
+	private void Awake () {
 		if (Application.isPlaying) {
 			skySphere.SetActive (false);
 			if (spawnPlayer) {
@@ -41,7 +39,7 @@ public class PlanetTest : MonoBehaviour {
 		}
 	}
 
-	void Update () {
+	private void Update () {
 		if (Application.isPlaying && showPlanet) {
 			foreach (var body in bodies) {
 				body.SetLOD (0);
@@ -54,7 +52,7 @@ public class PlanetTest : MonoBehaviour {
 		}
 	}
 
-	void OnValidate () {
+	private void OnValidate () {
 		if (!Application.isPlaying) {
 			//sun.SetActive (false);
 		}

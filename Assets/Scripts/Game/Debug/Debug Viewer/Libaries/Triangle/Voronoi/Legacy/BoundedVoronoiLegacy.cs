@@ -21,20 +21,20 @@ namespace TriangleNet.Voronoi.Legacy
     [Obsolete("Use TriangleNet.Voronoi.BoundedVoronoi class instead.")]
     public class BoundedVoronoiLegacy : IVoronoi
     {
-        IPredicates predicates = RobustPredicates.Default;
+        private IPredicates predicates = RobustPredicates.Default;
 
-        Mesh mesh;
+        private Mesh mesh;
 
-        Point[] points;
-        List<VoronoiRegion> regions;
+        private Point[] points;
+        private List<VoronoiRegion> regions;
 
         // Used for new points on segments.
-        List<Point> segPoints;
-        int segIndex;
+        private List<Point> segPoints;
+        private int segIndex;
 
-        Dictionary<int, SubSegment> subsegMap;
+        private Dictionary<int, SubSegment> subsegMap;
 
-        bool includeBoundary = true;
+        private bool includeBoundary = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BoundedVoronoiLegacy" /> class.
@@ -60,23 +60,14 @@ namespace TriangleNet.Voronoi.Legacy
         /// <summary>
         /// Gets the list of Voronoi vertices.
         /// </summary>
-        public Point[] Points
-        {
-            get { return points; }
-        }
+        public Point[] Points => points;
 
         /// <summary>
         /// Gets the list of Voronoi regions.
         /// </summary>
-        public ICollection<VoronoiRegion> Regions
-        {
-            get { return regions; }
-        }
+        public ICollection<VoronoiRegion> Regions => regions;
 
-        public IEnumerable<IEdge> Edges
-        {
-            get { return EnumerateEdges(); }
-        }
+        public IEnumerable<IEdge> Edges => EnumerateEdges();
 
         /// <summary>
         /// Computes the bounded voronoi diagram.
@@ -112,7 +103,7 @@ namespace TriangleNet.Voronoi.Legacy
             // Add the new points on segments to the point array.
             int length = points.Length;
 
-            Array.Resize<Point>(ref points, length + segPoints.Count);
+            Array.Resize(ref points, length + segPoints.Count);
 
             for (int i = 0; i < segPoints.Count; i++)
             {

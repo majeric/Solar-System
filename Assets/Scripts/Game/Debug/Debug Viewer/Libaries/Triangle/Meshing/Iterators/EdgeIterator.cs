@@ -15,12 +15,12 @@ namespace TriangleNet.Meshing.Iterators
     /// </summary>
     public class EdgeIterator : IEnumerator<Edge>
     {
-        IEnumerator<Triangle> triangles;
-        Otri tri = default(Otri);
-        Otri neighbor = default(Otri);
-        Osub sub = default(Osub);
-        Edge current;
-        Vertex p1, p2;
+        private IEnumerator<Triangle> triangles;
+        private Otri tri = default(Otri);
+        private Otri neighbor = default(Otri);
+        private Osub sub = default(Osub);
+        private Edge current;
+        private Vertex p1, p2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EdgeIterator" /> class.
@@ -34,20 +34,14 @@ namespace TriangleNet.Meshing.Iterators
             tri.orient = 0;
         }
 
-        public Edge Current
-        {
-            get { return current; }
-        }
+        public Edge Current => current;
 
         public void Dispose()
         {
             this.triangles.Dispose();
         }
 
-        object System.Collections.IEnumerator.Current
-        {
-            get { return current; }
-        }
+        object System.Collections.IEnumerator.Current => current;
 
         public bool MoveNext()
         {

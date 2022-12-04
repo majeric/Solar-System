@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class LockOnUI : MonoBehaviour {
@@ -20,12 +18,12 @@ public class LockOnUI : MonoBehaviour {
 	public float aimedAngle;
 	public Color aimedColor;
 
-	Camera playerCam;
-	MaterialPropertyBlock materialProperties;
-	Mesh lockedOnMesh;
-	Mesh aimMesh;
+	private Camera playerCam;
+	private MaterialPropertyBlock materialProperties;
+	private Mesh lockedOnMesh;
+	private Mesh aimMesh;
 
-	void Init () {
+	private void Init () {
 		if (materialProperties == null) {
 			materialProperties = new MaterialPropertyBlock ();
 		}

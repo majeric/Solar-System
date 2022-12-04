@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public static class CameraUtility {
-    static readonly Vector3[] cubeCornerOffsets = {
+    private static readonly Vector3[] cubeCornerOffsets = {
         new Vector3 (1, 1, 1),
         new Vector3 (-1, 1, 1),
         new Vector3 (-1, -1, 1),

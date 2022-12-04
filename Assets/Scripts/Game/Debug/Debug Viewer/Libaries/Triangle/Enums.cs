@@ -33,7 +33,7 @@ namespace TriangleNet
     /// because it lies on a segment, or was not inserted because another vertex 
     /// occupies the same location.
     /// </remarks>
-    enum InsertVertexResult { Successful, Encroaching, Violating, Duplicate };
+    internal enum InsertVertexResult { Successful, Encroaching, Violating, Duplicate };
 
     /// <summary>
     /// Labels that signify the result of direction finding.
@@ -42,5 +42,5 @@ namespace TriangleNet
     /// points falls within the direction triangle, along the left edge of the 
     /// direction triangle, or along the right edge of the direction triangle.
     /// </remarks>
-    enum FindDirectionResult { Within, Leftcollinear, Rightcollinear };
+    internal enum FindDirectionResult { Within, Leftcollinear, Rightcollinear };
 }
